@@ -24,6 +24,7 @@ export default function Navbar() {
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Skills', href: '#skills' },
+    // { name: 'Articles', href: '/articles' }, // Hidden for now - uncomment when articles content is ready
     { name: 'Contact', href: 'mailto:qureshisameem01@gmail.com' },
   ];
 
