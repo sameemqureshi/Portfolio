@@ -1,0 +1,43 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sentimentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </linearGradient>
+    <filter id="sentimentNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.1"/>
+        <feFuncG type="linear" slope="0.1"/>
+        <feFuncB type="linear" slope="0.1"/>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feBlend mode="overlay" in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" fill="url(#sentimentGrad)"/>
+  <rect width="600" height="400" fill="transparent" filter="url(#sentimentNoise)" opacity="0.3"/>
+  
+  <!-- Emotion faces -->
+  <g transform="translate(210, 100)">
+    <!-- Happy face -->
+    <circle cx="40" cy="50" r="35" fill="none" stroke="white" stroke-width="3" opacity="0.9"/>
+    <circle cx="28" cy="42" r="4" fill="white" opacity="0.9"/>
+    <circle cx="52" cy="42" r="4" fill="white" opacity="0.9"/>
+    <path d="M25 60 Q40 75, 55 60" fill="none" stroke="white" stroke-width="3" opacity="0.9"/>
+    
+    <!-- Neutral face -->
+    <circle cx="120" cy="50" r="35" fill="none" stroke="white" stroke-width="3" opacity="0.7"/>
+    <circle cx="108" cy="42" r="4" fill="white" opacity="0.7"/>
+    <circle cx="132" cy="42" r="4" fill="white" opacity="0.7"/>
+    <line x1="105" y1="62" x2="135" y2="62" stroke="white" stroke-width="3" opacity="0.7"/>
+  </g>
+  
+  <text x="300" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="white" text-anchor="middle" font-weight="600">
+    Sentiment Analysis
+  </text>
+  <text x="300" y="285" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.8">
+    NLP • Machine Learning • Python
+  </text>
+</svg>

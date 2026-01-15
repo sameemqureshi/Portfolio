@@ -12,7 +12,7 @@ export const projects = [
     slug: 'heart-disease-prediction-mlops',
     desc: 'Production-ready heart disease prediction system featuring an end-to-end MLOps workflow from training to deployment on GKE, complete with CI/CD, observability, and model governance.',
     tags: ['MLOps', 'GCP', 'Kubernetes', 'FastAPI', 'Docker', 'GitHub Actions', 'Prometheus', 'SHAP'],
-    image: '/heart-disease-prediction.png',
+    image: '/projects/heart-disease-mlops.svg',
     color: 'from-red-500/20 to-rose-600/20',
     link: '/projects/heart-disease-prediction-mlops',
     github: 'https://github.com/sameemqureshi/21f1000868_IITMBS_MLOPS_OPPE2',
@@ -33,7 +33,7 @@ export const projects = [
     slug: 'docuvision-rag',
     desc: 'End-to-end Retrieval Augmented Generation (RAG) system for querying visually rich PDFs, images, and text using Vision Language Models and FastAPI. Designed for sourced, context-aware responses with improved accuracy and processing speed over traditional RAG systems.',
     tags: ['RAG', 'Python', 'FastAPI', 'PyTorch', 'Vision Language Models', 'ChromaDB'],
-    image: '/Docu-Vision-Rag.png',
+    image: '/projects/docuvision-rag.svg',
     color: 'from-cyan-500/20 to-blue-600/20',
     link: '/projects/docuvision-rag',
     github: 'https://github.com/sameemqureshi/DocuVision-RAG-AI-Driven-Visual-Knowledge-Extraction',
@@ -54,7 +54,7 @@ export const projects = [
     slug: 'household-services-app',
     desc: 'Full-stack multi-role household services platform with user registration, task workflows, admin verification, background jobs, and real-time data pipelines to streamline operations.',
     tags: ['Python', 'Flask', 'SQLAlchemy', 'Vue.js', 'Redis', 'Celery'],
-    image: 'https://placehold.co/600x400/png?text=Household+Services',
+    image: '/projects/household-services.svg',
     color: 'from-purple-500/20 to-pink-600/20',
     link: '/projects/household-services-app',
     github: 'https://github.com/sameemqureshi/HouseholdServices',
@@ -75,7 +75,7 @@ export const projects = [
     slug: 'speech-to-text-pipeline',
     desc: 'Scalable automated speech-to-text pipeline for audio extraction, preprocessing, ASR dataset curation, and reporting using NVIDIA NeMo, ffmpeg, and Python tooling.',
     tags: ['WebScraping', 'Audio Preprocessing', 'Text Processing', 'Python', 'NVIDIA NeMo', 'ffmpeg'],
-    image: 'https://placehold.co/600x400/png?text=Speech+to+Text',
+    image: '/projects/speech-to-text.svg',
     color: 'from-emerald-500/20 to-teal-600/20',
     link: '/projects/speech-to-text-pipeline',
     github: 'https://github.com/sameemqureshi/Speech-To-Text',
@@ -96,7 +96,7 @@ export const projects = [
     slug: 'sentiment-movie-reviews',
     desc: 'NLP pipeline for sentiment analysis on movie reviews, covering preprocessing, classical ML models, and evaluation for practical decision-making insights.',
     tags: ['NLP', 'Python', 'Machine Learning', 'Data Preprocessing', 'Model Evaluation'],
-    image: 'https://placehold.co/600x400/png?text=Sentiment+Analysis',
+    image: '/projects/sentiment-analysis.svg',
     color: 'from-amber-500/20 to-orange-600/20',
     link: '/projects/sentiment-movie-reviews',
     github: 'https://github.com/sameemqureshi/Sentiment-Analysis',
@@ -117,7 +117,7 @@ export const projects = [
     slug: 'answerly-chatbot',
     desc: 'Conversational Q&A assistant leveraging LangChain, Hugging Face models, vector stores, and DataStax to deliver grounded answers over enterprise data.',
     tags: ['LLM', 'LangChain', 'Hugging Face', 'Vector Stores', 'DataStax', 'Python'],
-    image: 'https://placehold.co/600x400/png?text=Answerly+Chatbot',
+    image: '/projects/answerly-chatbot.svg',
     color: 'from-fuchsia-500/20 to-purple-600/20',
     link: '/projects/answerly-chatbot',
     github: 'https://github.com/sameemqureshi/Answerly-Chat-Bot',
@@ -138,7 +138,7 @@ export const projects = [
     slug: 'business-data-management',
     desc: 'Analytics capstone studying real-world enterprise sales data for demand forecasting, product performance, and data-driven business decisions.',
     tags: ['Data Collection', 'Data Analysis', 'Data Visualization', 'Microsoft Excel'],
-    image: 'https://placehold.co/600x400/png?text=Business+Data',
+    image: '/projects/business-data.svg',
     color: 'from-sky-500/20 to-indigo-600/20',
     link: '/projects/business-data-management',
     github: 'https://github.com/sameemqureshi?tab=repositories',
@@ -231,7 +231,7 @@ export const experience = [
       'AI-powered VS Code Extension: Built an AI-assisted VS Code extension for in-editor code completion, explanations, and debugging with a focus on privacy and developer productivity. Developed a Tree-sitter-based code indexing pipeline and hybrid retrieval system using SQLite (metadata) + LanceDB (vector search) for fast repository-level context search.',
       'Scalable AI Backend, Console & MCP Integrations: Built a scalable Python/FastAPI backend on an Azure Private Instance, integrating multiple LLM providers. Developed a developer console for usage, billing, and model consumption insights. Improved RAG quality using Multi-Query Retrieval and MMR, and added extensible support for Model Context Protocol (MCP) servers.'
     ],
-    stack: ['Python', 'FastAPI', 'AWS Serverless', 'Tree-sitter', 'SQLite', 'LanceDB', 'Azure', 'OpenAI', 'Bedrock', 'Meta LLMs', 'Alibaba Cloud', 'VS Code Extensions', 'RAG']
+    stack: ['Python', 'FastAPI', 'AWS Serverless', 'Tree-sitter', 'SQLite', 'LanceDB', 'Azure', 'OpenAI', 'Bedrock', 'LLMs', 'Alibaba Cloud', 'VS Code Extensions', 'RAG', 'NextJS', 'Redis', 'AWS RDS']
   }
 ];
 
