@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -23,7 +23,9 @@ export default function Navbar() {
     { name: 'About', href: '#about' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Education', href: '#education' },
     { name: 'Skills', href: '#skills' },
+    { name: 'Articles', href: '#articles' },
     { name: 'Contact', href: 'mailto:qureshisameem01@gmail.com' },
   ];
 
@@ -38,8 +40,8 @@ export default function Navbar() {
       className="fixed top-0 inset-x-0 z-50 h-16 bg-slate-950/80 backdrop-blur-md border-b border-white/5"
     >
       <div className="max-w-5xl mx-auto px-6 h-full flex items-center justify-between">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
         >
           SQ
@@ -62,6 +64,8 @@ export default function Navbar() {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-slate-300 hover:text-white"
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isOpen}
         >
           {isOpen ? <X /> : <Menu />}
         </button>

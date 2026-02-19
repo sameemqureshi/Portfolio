@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,16 +12,51 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#020617',
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sameemqureshi.dev"),
   title: "Sameem Qureshi | AI/ML & LLM Engineer",
-  description: "Portfolio of Sameem Qureshi, an AI/ML Engineer specializing in LLMs, RAG systems, and full-stack development.",
-  keywords: ["AI Engineer", "Machine Learning", "LLM", "RAG", "Next.js", "Portfolio", "Sameem Qureshi"],
+  description: "Portfolio of Sameem Qureshi, an AI/ML Engineer specializing in LLMs, RAG systems, and full-stack development at Logitech.",
+  keywords: ["AI Engineer", "Machine Learning", "LLM", "RAG", "Next.js", "Portfolio", "Sameem Qureshi", "GenAI", "MLOps", "LangChain"],
   authors: [{ name: "Sameem Qureshi" }],
+  creator: "Sameem Qureshi",
   openGraph: {
     title: "Sameem Qureshi | AI/ML & LLM Engineer",
-    description: "Building practical AI systems and developer tools.",
+    description: "Building practical AI systems, RAG pipelines, and developer tools. Currently at Logitech.",
     type: "website",
     locale: "en_US",
+    url: "https://sameemqureshi.dev",
+    siteName: "Sameem Qureshi Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sameem Qureshi - AI/ML & LLM Engineer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sameem Qureshi | AI/ML & LLM Engineer",
+    description: "Building practical AI systems, RAG pipelines, and developer tools.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -32,6 +67,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Sameem Qureshi",
+              "jobTitle": "AI/ML & LLM Engineer",
+              "worksFor": { "@type": "Organization", "name": "Logitech" },
+              "url": "https://sameemqureshi.dev",
+              "sameAs": [
+                "https://github.com/sameemqureshi",
+                "https://www.linkedin.com/in/sameemqureshi/"
+              ]
+            })
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
