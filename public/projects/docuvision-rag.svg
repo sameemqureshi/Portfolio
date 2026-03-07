@@ -1,0 +1,51 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="docuGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+    <filter id="docuNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.1"/>
+        <feFuncG type="linear" slope="0.1"/>
+        <feFuncB type="linear" slope="0.1"/>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feBlend mode="overlay" in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" fill="url(#docuGrad)"/>
+  <rect width="600" height="400" fill="transparent" filter="url(#docuNoise)" opacity="0.3"/>
+  
+  <!-- Document with vision eye icon -->
+  <g transform="translate(220, 80)">
+    <!-- Document -->
+    <rect x="0" y="0" width="80" height="100" rx="5" fill="white" opacity="0.9"/>
+    <rect x="10" y="15" width="45" height="5" rx="2" fill="#2563eb" opacity="0.5"/>
+    <rect x="10" y="27" width="60" height="5" rx="2" fill="#2563eb" opacity="0.4"/>
+    <rect x="10" y="39" width="50" height="5" rx="2" fill="#2563eb" opacity="0.3"/>
+    <rect x="10" y="51" width="55" height="5" rx="2" fill="#2563eb" opacity="0.3"/>
+    
+    <!-- Vision Eye -->
+    <g transform="translate(90, 30)">
+      <ellipse cx="35" cy="25" rx="35" ry="22" fill="none" stroke="white" stroke-width="3" opacity="0.9"/>
+      <circle cx="35" cy="25" r="12" fill="white" opacity="0.9"/>
+      <circle cx="35" cy="25" r="6" fill="#06b6d4" opacity="0.9"/>
+    </g>
+    
+    <!-- Arrow connecting -->
+    <path d="M85 50 L105 50" stroke="white" stroke-width="3" opacity="0.7" stroke-linecap="round"/>
+  </g>
+  
+  <text x="300" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="white" text-anchor="middle" font-weight="600">
+    DocuVision RAG
+  </text>
+  <text x="300" y="285" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.8">
+    Vision Language Models • ChromaDB
+  </text>
+  <text x="300" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white" text-anchor="middle" opacity="0.6">
+    AI-Driven Visual Knowledge Extraction
+  </text>
+</svg>

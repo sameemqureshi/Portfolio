@@ -1,0 +1,111 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e11d48;stop-opacity:1" />
+    </linearGradient>
+    <filter id="heartNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.1"/>
+        <feFuncG type="linear" slope="0.1"/>
+        <feFuncB type="linear" slope="0.1"/>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feBlend mode="overlay" in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" fill="url(#heartGrad)"/>
+  <rect width="600" height="400" fill="transparent" filter="url(#heartNoise)" opacity="0.3"/>
+  
+  <!-- Main content area -->
+  <g transform="translate(130, 60)">
+    <!-- Heart shape (center) -->
+    <g transform="translate(120, 0)">
+      <path d="M50 20 C50 10, 38 3, 28 13 C18 3, 6 10, 6 20 C6 38, 28 55, 28 55 C28 55, 50 38, 50 20" 
+            fill="white" opacity="0.95"/>
+      <!-- Small pulse inside heart -->
+      <polyline points="12,28 18,28 21,20 25,35 28,28 35,28" 
+                fill="none" stroke="#ef4444" stroke-width="2" opacity="0.8" stroke-linecap="round"/>
+    </g>
+    
+    <!-- ECG Line across -->
+    <g transform="translate(0, 70)">
+      <polyline points="0,20 40,20 50,5 60,35 70,20 90,20 100,0 110,40 120,20 180,20 190,8 200,32 210,20 280,20 290,5 300,35 310,20 340,20" 
+                fill="none" stroke="white" stroke-width="2.5" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    
+    <!-- Docker container icon (left) -->
+    <g transform="translate(0, 110)">
+      <rect x="0" y="0" width="60" height="45" rx="4" fill="white" opacity="0.9"/>
+      <!-- Docker whale body -->
+      <rect x="8" y="20" width="44" height="18" rx="2" fill="#2563eb" opacity="0.8"/>
+      <!-- Container blocks on whale -->
+      <rect x="10" y="8" width="8" height="8" rx="1" fill="#2563eb" opacity="0.6"/>
+      <rect x="20" y="8" width="8" height="8" rx="1" fill="#2563eb" opacity="0.6"/>
+      <rect x="30" y="8" width="8" height="8" rx="1" fill="#2563eb" opacity="0.6"/>
+      <rect x="10" y="22" width="8" height="6" rx="1" fill="white" opacity="0.5"/>
+      <rect x="20" y="22" width="8" height="6" rx="1" fill="white" opacity="0.5"/>
+      <rect x="30" y="22" width="8" height="6" rx="1" fill="white" opacity="0.5"/>
+      <rect x="40" y="22" width="8" height="6" rx="1" fill="white" opacity="0.5"/>
+      <text x="30" y="62" font-family="system-ui, sans-serif" font-size="10" fill="white" text-anchor="middle" opacity="0.9">Docker</text>
+    </g>
+    
+    <!-- Kubernetes icon (center-left) -->
+    <g transform="translate(80, 110)">
+      <rect x="0" y="0" width="60" height="45" rx="4" fill="white" opacity="0.9"/>
+      <!-- K8s wheel -->
+      <circle cx="30" cy="22" r="14" fill="none" stroke="#326ce5" stroke-width="2.5"/>
+      <circle cx="30" cy="22" r="5" fill="#326ce5"/>
+      <!-- Spokes -->
+      <line x1="30" y1="8" x2="30" y2="14" stroke="#326ce5" stroke-width="2"/>
+      <line x1="30" y1="30" x2="30" y2="36" stroke="#326ce5" stroke-width="2"/>
+      <line x1="16" y1="22" x2="22" y2="22" stroke="#326ce5" stroke-width="2"/>
+      <line x1="38" y1="22" x2="44" y2="22" stroke="#326ce5" stroke-width="2"/>
+      <text x="30" y="62" font-family="system-ui, sans-serif" font-size="10" fill="white" text-anchor="middle" opacity="0.9">K8s</text>
+    </g>
+    
+    <!-- Prometheus/Monitoring icon (center-right) -->
+    <g transform="translate(160, 110)">
+      <rect x="0" y="0" width="60" height="45" rx="4" fill="white" opacity="0.9"/>
+      <!-- Graph/chart icon -->
+      <polyline points="8,35 8,10 52,10" fill="none" stroke="#e6522c" stroke-width="2"/>
+      <polyline points="12,28 22,18 32,25 42,12 48,18" fill="none" stroke="#e6522c" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="22" cy="18" r="3" fill="#e6522c"/>
+      <circle cx="42" cy="12" r="3" fill="#e6522c"/>
+      <text x="30" y="62" font-family="system-ui, sans-serif" font-size="10" fill="white" text-anchor="middle" opacity="0.9">Prometheus</text>
+    </g>
+    
+    <!-- GCP/Cloud icon (right) -->
+    <g transform="translate(240, 110)">
+      <rect x="0" y="0" width="60" height="45" rx="4" fill="white" opacity="0.9"/>
+      <!-- Cloud shape -->
+      <path d="M12 30 C8 30, 8 24, 12 22 C10 18, 14 14, 20 16 C22 12, 30 10, 36 14 C42 12, 48 16, 48 22 C52 24, 52 30, 48 30 Z" 
+            fill="none" stroke="#4285f4" stroke-width="2.5"/>
+      <!-- Gear inside cloud -->
+      <circle cx="30" cy="22" r="5" fill="#4285f4" opacity="0.8"/>
+      <text x="30" y="62" font-family="system-ui, sans-serif" font-size="10" fill="white" text-anchor="middle" opacity="0.9">GCP</text>
+    </g>
+    
+    <!-- CI/CD arrow -->
+    <g transform="translate(310, 110)">
+      <rect x="0" y="0" width="60" height="45" rx="4" fill="white" opacity="0.9"/>
+      <!-- Circular arrow for CI/CD -->
+      <path d="M20 15 A12 12 0 1 1 20 29" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+      <polygon points="20,12 16,18 24,18" fill="#22c55e"/>
+      <polygon points="20,32 16,26 24,26" fill="#22c55e"/>
+      <text x="30" y="62" font-family="system-ui, sans-serif" font-size="10" fill="white" text-anchor="middle" opacity="0.9">CI/CD</text>
+    </g>
+  </g>
+  
+  <text x="300" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="26" fill="white" text-anchor="middle" font-weight="600">
+    Heart Disease Prediction
+  </text>
+  <text x="300" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.8">
+    End-to-End Production MLOps Pipeline
+  </text>
+  <text x="300" y="345" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="white" text-anchor="middle" opacity="0.6">
+    FastAPI • SHAP Explainability • GitHub Actions
+  </text>
+</svg>

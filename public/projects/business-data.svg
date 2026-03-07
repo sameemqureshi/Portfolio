@@ -1,0 +1,38 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="businessGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="businessNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.1"/>
+        <feFuncG type="linear" slope="0.1"/>
+        <feFuncB type="linear" slope="0.1"/>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feBlend mode="overlay" in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="600" height="400" fill="url(#businessGrad)"/>
+  <rect width="600" height="400" fill="transparent" filter="url(#businessNoise)" opacity="0.3"/>
+  
+  <!-- Bar chart icon -->
+  <g transform="translate(230, 100)">
+    <rect x="10" y="60" width="25" height="40" rx="3" fill="white" opacity="0.7"/>
+    <rect x="45" y="35" width="25" height="65" rx="3" fill="white" opacity="0.85"/>
+    <rect x="80" y="15" width="25" height="85" rx="3" fill="white" opacity="0.95"/>
+    <rect x="115" y="45" width="25" height="55" rx="3" fill="white" opacity="0.75"/>
+    <!-- Trend line -->
+    <path d="M22 55 L57 30 L92 10 L127 40" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  </g>
+  
+  <text x="300" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="white" text-anchor="middle" font-weight="600">
+    Business Analytics
+  </text>
+  <text x="300" y="285" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.8">
+    Data Analysis • Excel • Forecasting
+  </text>
+</svg>
