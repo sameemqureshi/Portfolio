@@ -1,14 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // For GitHub Pages static export
-  output: 'export',
+  // For GitHub Pages static export (production only)
+  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
 
-  // Subdirectory deployment: https://sameemqureshi.github.io/Portfolio/
-  basePath: '/Portfolio',
+  // Subdirectory deployment: https://sameemqureshi.github.io/Portfolio/ (production only)
+  basePath: process.env.NODE_ENV === 'production' ? '/Portfolio' : undefined,
 
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: process.env.NODE_ENV === 'production', // Required for static export in production
     remotePatterns: [
       {
         protocol: 'https',
