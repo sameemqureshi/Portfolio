@@ -240,7 +240,7 @@ export const education = [
     period: '2020 – Present',
     degree: "Bachelor's in Data Science and Applications",
     institute: 'IIT Madras',
-    note: 'CGPA: 8.09'
+    note: 'CGPA: 7.9'
   },
   {
     period: '2020 – 2024',
