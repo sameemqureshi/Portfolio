@@ -402,6 +402,52 @@ export default function Home() {
                  ))}
               </div>
             </motion.div>
+
+            <motion.div
+              variants={fadeInLeft}
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+              className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-colors"
+            >
+              <h3 className="text-lg font-semibold text-slate-200 mb-4 border-b border-slate-800 pb-2">Cloud & Infrastructure</h3>
+              <div className="flex flex-wrap gap-2">
+                 {skills.cloud.map((skill, index) => (
+                   <motion.span
+                     key={skill}
+                     initial={{ opacity: 0, scale: 0.8 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     viewport={{ once: true }}
+                     transition={{ delay: index * 0.03, duration: 0.3 }}
+                     whileHover={{ scale: 1.1, y: -2, transition: { duration: 0.2 } }}
+                     className="px-3 py-1 text-sm rounded-md bg-slate-800/50 text-sky-400/80 border border-slate-700/50 cursor-default"
+                   >
+                     {skill}
+                   </motion.span>
+                 ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInRight}
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+              className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-colors"
+            >
+              <h3 className="text-lg font-semibold text-slate-200 mb-4 border-b border-slate-800 pb-2">Tools & Platforms</h3>
+              <div className="flex flex-wrap gap-2">
+                 {skills.tools.map((skill, index) => (
+                   <motion.span
+                     key={skill}
+                     initial={{ opacity: 0, scale: 0.8 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     viewport={{ once: true }}
+                     transition={{ delay: index * 0.03, duration: 0.3 }}
+                     whileHover={{ scale: 1.1, y: -2, transition: { duration: 0.2 } }}
+                     className="px-3 py-1 text-sm rounded-md bg-slate-800/50 text-fuchsia-400/80 border border-slate-700/50 cursor-default"
+                   >
+                     {skill}
+                   </motion.span>
+                 ))}
+              </div>
+            </motion.div>
           </div>
         </motion.section>
 

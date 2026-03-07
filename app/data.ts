@@ -252,9 +252,11 @@ export const education = [
 
 export const skills = {
   programming: ['Python', 'Java', 'JavaScript', 'TypeScript'],
-  ml: ['LLMs', 'NLP', 'LangChain', 'Vector Stores', 'Embeddings', 'Text Chunking', 'RAG'],
+  ml: ['LLMs', 'NLP', 'LangChain', 'RAG', 'Vector Stores', 'Embeddings', 'Text Chunking', 'PyTorch', 'Hugging Face', 'NVIDIA NeMo', 'SHAP', 'Fairlearn', 'Evidently'],
   data: ['Data Preprocessing', 'Data Manipulation', 'Statistical Methods', 'Data Analysis'],
-  web: ['VS Code Extension Development', 'Flask', 'FastAPI', 'Django']
+  web: ['VS Code Extension Development', 'FastAPI', 'Flask', 'Django', 'Vue.js', 'Streamlit'],
+  cloud: ['AWS', 'EventBridge', 'Lambda', 'Kinesis Firehose', 'S3', 'GCP', 'GKE', 'Azure', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD'],
+  tools: ['Tree-sitter', 'LanceDB', 'ChromaDB', 'SQLite', 'DataStax Astra DB', 'OpenAI API', 'AWS Bedrock', 'Meta LLMs', 'Alibaba Cloud LLMs', 'MCP', 'Redis', 'Celery', 'Prometheus', 'ffmpeg']
 };
 
 export const certifications = [
