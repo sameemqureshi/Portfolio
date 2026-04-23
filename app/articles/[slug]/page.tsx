@@ -1,6 +1,7 @@
 import { articles } from '@/app/data';
 import ArticleLayout from '@/app/components/ArticleLayout';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
 interface ArticlePageProps {
   params: {
@@ -14,6 +15,15 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+  const article = articles.find((art) => art.slug === params.slug);
+  if (!article) return {};
+  return {
+    title: `${article.title} | Sameem Qureshi`,
+    description: article.description,
+  };
+}
+
 const ArticlePage = ({ params }: ArticlePageProps) => {
   const article = articles.find((art) => art.slug === params.slug);
 
@@ -21,14 +31,7 @@ const ArticlePage = ({ params }: ArticlePageProps) => {
     notFound();
   }
 
-  return (
-    <ArticleLayout article={article}>
-      {/* This is a placeholder for the actual article content. */}
-      {/* The user only wanted links and previews for now. */}
-      <p>This is a placeholder for the article content on "{article.title}".</p>
-      <p>Full article coming soon!</p>
-    </ArticleLayout>
-  );
+  return <ArticleLayout article={article} />;
 };
 
 export default ArticlePage;

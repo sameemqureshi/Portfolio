@@ -131,12 +131,13 @@ export default function Home() {
                 <ArrowDown className="w-4 h-4" />
               </Link>
               <a
-                href="/resume.pdf"
-                download="Sameem_Qureshi_Resume.pdf"
+                href="https://drive.google.com/file/d/1wfNauWCljH4p8Q6bFLjoDa12Xgwl5kvj/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-slate-300 bg-slate-900/60 border border-slate-700 rounded-full hover:bg-slate-800 hover:text-white transition-all hover:scale-105 active:scale-95"
               >
                 <FileDown className="w-4 h-4" />
-                Download Resume
+                View Resume
               </a>
             </motion.div>
           </motion.div>

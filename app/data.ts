@@ -163,6 +163,32 @@ export const articles = [
     date: '2024-02-01',
     author: 'M. Qureshi',
     description: 'A comprehensive guide to building production-ready MLOps pipelines on Google Cloud Platform, covering containerization, Kubernetes deployment, and automated CI/CD with GitHub Actions.',
+    content: [
+      {
+        type: 'intro',
+        text: 'Shipping a machine learning model to production is fundamentally different from getting it to work in a notebook. The gap between a well-performing experiment and a reliable, observable, maintainable system in the real world is where most ML projects fail. This article walks through the complete MLOps architecture I built for a heart disease prediction system on Google Cloud Platform — covering every layer from training pipelines to live inference, monitoring, and automated retraining.'
+      },
+      {
+        type: 'section',
+        heading: 'Why MLOps Matters',
+        text: 'A model trained once and deployed without monitoring is a liability. Data distributions shift, dependencies break, and model performance degrades silently. MLOps is the practice of applying DevOps principles — automation, observability, and reproducibility — to the machine learning lifecycle. The goal is to make every step from data ingestion to deployment auditable, automated, and recoverable.'
+      },
+      {
+        type: 'section',
+        heading: 'Pipeline Architecture on GCP',
+        text: 'The pipeline consists of four stages. First, training runs in a containerised Python environment using scikit-learn and XGBoost, with experiment tracking via MLflow. The trained model artifact is pushed to GCP Artifact Registry alongside a Docker image of the FastAPI inference server. Second, GitHub Actions triggers on every merge to main — it runs tests, builds the image, and pushes it to Artifact Registry. Third, a Kubernetes deployment manifest on GKE pulls the latest image and performs a rolling update with zero downtime. Fourth, Prometheus scrapes a /metrics endpoint on the inference server, and Grafana dashboards visualise request latency, prediction confidence distributions, and error rates.'
+      },
+      {
+        type: 'section',
+        heading: 'Model Governance: Explainability and Fairness',
+        text: 'Production ML carries responsibility beyond accuracy. I integrated SHAP (SHapley Additive exPlanations) to generate per-prediction feature importance scores, making model decisions interpretable for clinical stakeholders. Fairlearn was used to evaluate performance parity across demographic groups, ensuring the model does not systematically underperform for any segment. Evidently AI provides automated drift reports by comparing the live prediction distribution against the training baseline — a drift alert triggers a retraining job.'
+      },
+      {
+        type: 'section',
+        heading: 'Key Takeaways',
+        text: 'The most important lesson: invest in observability before you need it. Setting up Prometheus and structured logging felt like overhead early on, but it paid dividends when a silent data schema change caused prediction confidence to drop. The monitoring caught it within minutes. The second lesson: treat your ML pipeline as software. Infrastructure as code, versioned model artifacts, and reproducible training runs are non-negotiable for anything that goes to production.'
+      }
+    ]
   },
   {
     title: 'Building Serverless Analytics Pipelines with AWS EventBridge & Lambda',
@@ -170,6 +196,32 @@ export const articles = [
     date: '2024-02-15',
     author: 'M. Qureshi',
     description: 'Learn how to design and implement scalable, serverless telemetry pipelines using AWS EventBridge, Lambda, Kinesis, and S3 for real-time application usage analytics.',
+    content: [
+      {
+        type: 'intro',
+        text: 'Understanding how users actually interact with your software is one of the highest-leverage investments a product team can make. At Logitech, I designed a serverless telemetry pipeline that captures application usage events from desktop clients, routes and enriches them in real time, and lands them in an S3-based data lake ready for analysis. This is what that architecture looks like and why each component was chosen.'
+      },
+      {
+        type: 'section',
+        heading: 'The Problem with Traditional Analytics Setups',
+        text: 'Most teams start with a simple approach: write events to a database. That works until you have multiple applications, multiple regions, or events that need conditional routing — then it becomes a maintenance burden. A serverless event-driven architecture separates concerns cleanly: producers emit events, a routing layer decides what to do with them, and consumers process and store the data. Each component scales independently and you pay only for what you use.'
+      },
+      {
+        type: 'section',
+        heading: 'Pipeline Design: EventBridge → Lambda → Firehose → S3',
+        text: 'Application clients publish structured JSON events to an EventBridge custom event bus. EventBridge rules pattern-match on event fields to route events to the appropriate Lambda processor. Each Lambda function enriches the event — adding server-side timestamps, user segment metadata, and geolocation — before writing to a Kinesis Data Firehose delivery stream. Firehose buffers events and delivers them to S3 in Parquet format, partitioned by date and event type. This partitioning is critical: Athena queries over partitioned Parquet files are orders of magnitude faster and cheaper than scanning raw JSON.'
+      },
+      {
+        type: 'section',
+        heading: 'Trigger Detection and Structured Logging',
+        text: 'Not every mouse click is analytically interesting. The Lambda enrichment layer implements trigger detection logic — identifying meaningful user actions like feature activations, session starts, and error states — and annotates events accordingly. Structured logging with consistent field names across all Lambda functions makes downstream querying predictable. Every log line is a JSON object with a fixed schema, which means CloudWatch Insights queries are fast and reliable.'
+      },
+      {
+        type: 'section',
+        heading: 'Operational Lessons',
+        text: 'Dead-letter queues are essential. Events that fail processing do not disappear — they land in an SQS DLQ where they can be inspected and reprocessed once the bug is fixed. Idempotency matters too: Lambda can occasionally invoke a function more than once for the same event, so the enrichment logic must be safe to run twice on the same input. Finally, keep Lambda functions small and focused. A function that does one thing is easier to test, debug, and replace.'
+      }
+    ]
   },
   {
     title: 'Mastering RAG: Building Context-Aware LLM Applications',
@@ -177,6 +229,32 @@ export const articles = [
     date: '2023-11-01',
     author: 'M. Qureshi',
     description: 'A deep dive into Retrieval Augmented Generation (RAG) and how to build LLM applications that provide grounded, context-aware responses, leveraging techniques for efficient information retrieval.',
+    content: [
+      {
+        type: 'intro',
+        text: 'Large language models are impressive general reasoners, but they have a fundamental limitation: their knowledge is frozen at training time. Retrieval Augmented Generation (RAG) solves this by giving the model access to a dynamic, up-to-date knowledge base at inference time. Instead of relying on parametric memory, the model retrieves relevant documents and reasons over them to produce grounded, citable answers. This article explains how RAG works, where it fails, and how to build systems that actually perform well in production.'
+      },
+      {
+        type: 'section',
+        heading: 'The Core RAG Loop',
+        text: 'A RAG system has three stages. First, ingestion: documents are split into chunks, each chunk is converted to a dense vector embedding using a model like text-embedding-3-small, and the vectors are stored in a vector database alongside the original text. Second, retrieval: when a user submits a query, the query is embedded using the same model, and the vector database returns the top-k most similar chunks by cosine similarity. Third, generation: the retrieved chunks are injected into the LLM prompt as context, and the model generates a response grounded in that context rather than its parametric knowledge alone.'
+      },
+      {
+        type: 'section',
+        heading: 'Chunking Strategy Is Everything',
+        text: 'The single biggest lever on RAG quality is how you split documents. Fixed-size chunking (e.g. 512 tokens with 50-token overlap) is a reasonable baseline, but it frequently splits sentences mid-thought. Recursive character splitting respects paragraph and sentence boundaries, producing more coherent chunks. For structured content like code or markdown, specialised splitters that understand the document structure produce dramatically better results. The overlap between chunks is important too — without it, retrievals that span a chunk boundary miss critical context.'
+      },
+      {
+        type: 'section',
+        heading: 'Evaluating Retrieval Quality',
+        text: 'A RAG system can fail at two independent points: retrieval and generation. If the right chunks are not retrieved, no amount of prompting will produce a correct answer. Measure retrieval quality separately using hit rate and mean reciprocal rank (MRR) against a golden dataset of query–answer pairs. Only after retrieval quality is solid should you focus on generation quality metrics like faithfulness (does the answer contradict the context?) and answer relevance.'
+      },
+      {
+        type: 'section',
+        heading: 'Production Considerations',
+        text: 'In production, latency and cost are real constraints. Caching embeddings for frequently seen queries reduces both. Hybrid retrieval — combining dense vector search with sparse BM25 keyword search — often outperforms either approach alone, especially for queries containing rare terms or proper nouns. Guardrails that check whether the retrieved context actually contains information relevant to the query can prevent the model from hallucinating when context is weak.'
+      }
+    ]
   },
   {
     title: 'Developing VS Code Extensions with AI: Code Intelligence & Privacy',
@@ -184,6 +262,32 @@ export const articles = [
     date: '2023-11-15',
     author: 'M. Qureshi',
     description: 'Learn the architectural patterns and implementation details of creating an AI-powered VS Code extension, focusing on structured code indexing, hybrid storage, and privacy-preserving LLM integrations.',
+    content: [
+      {
+        type: 'intro',
+        text: 'Building an AI-powered VS Code extension that genuinely understands your codebase — not just the file you have open — requires solving several hard engineering problems at once: how do you index a large repository efficiently, how do you retrieve the most relevant context for a query, and how do you do all of this without sending your entire codebase to a third-party API? At Logitech, I built exactly this system. Here is the architecture.'
+      },
+      {
+        type: 'section',
+        heading: 'Parsing Code with Tree-sitter',
+        text: 'Text-level chunking works for prose documents, but code has structure that matters. A function definition, its docstring, and its call sites are related in ways that line-based splitting cannot capture. Tree-sitter provides a language-aware parser that produces a concrete syntax tree for any supported language. By walking the AST, the indexer extracts semantically meaningful units — functions, classes, imports — and stores them with their type, name, file path, and line range. This structured metadata enables retrieval that understands code, not just text.'
+      },
+      {
+        type: 'section',
+        heading: 'Hybrid Storage: SQLite + LanceDB',
+        text: 'The indexer maintains two parallel stores. SQLite holds metadata: symbol names, types, file paths, and the raw source text. This enables fast keyword search and exact lookups by symbol name. LanceDB holds vector embeddings of the same code chunks. When a developer asks a question, the extension runs both a keyword search against SQLite and a semantic search against LanceDB, then merges and re-ranks the results. Hybrid retrieval consistently outperforms either approach alone — keyword search handles exact symbol names, semantic search handles conceptual queries.'
+      },
+      {
+        type: 'section',
+        heading: 'Privacy-Preserving LLM Integration',
+        text: 'Sending proprietary source code to a public API endpoint is a non-starter for enterprise software. The extension architecture supports multiple LLM backends: a local Ollama instance for fully private inference, an Azure OpenAI endpoint on a private network, or an external provider with explicit user consent. The LLM never receives the full codebase — it receives only the retrieved context chunks relevant to the current query, minimising the surface area of any potential data exposure.'
+      },
+      {
+        type: 'section',
+        heading: 'Developer Experience Details',
+        text: 'The extension uses the VS Code Language Server Protocol for inline completion suggestions, giving it access to cursor position and surrounding context. An incremental indexer watches for file save events and updates only the affected file in both stores, keeping the index fresh without expensive full re-indexing. The UX lesson: background indexing must be completely invisible. Any latency or UI jank during indexing kills adoption.'
+      }
+    ]
   },
   {
     title: 'Leveraging Vector Databases for Semantic Search in AI Systems',
@@ -191,6 +295,32 @@ export const articles = [
     date: '2023-12-01',
     author: 'M. Qureshi',
     description: 'Explore the power of vector databases like LanceDB and ChromaDB for enabling semantic search and efficient similarity retrieval in modern AI and RAG applications.',
+    content: [
+      {
+        type: 'intro',
+        text: 'Traditional databases answer questions about exact values: give me all users where country equals "India". Vector databases answer a different kind of question: give me the documents most similar in meaning to this query. This capability — semantic similarity search — is the backbone of every RAG system, recommendation engine, and duplicate detection pipeline built on top of modern embeddings. This article explains how vector databases work, when to use which one, and the practical engineering decisions that matter in production.'
+      },
+      {
+        type: 'section',
+        heading: 'How Vector Search Works',
+        text: 'An embedding model converts text, images, or any other data into a dense numerical vector — typically 768 to 3072 dimensions for modern language models. Vectors that are semantically similar land close together in this high-dimensional space. A vector database stores these vectors and, given a query vector, retrieves the k nearest neighbours by distance metric (cosine similarity or L2 distance). The naive approach — computing distance to every stored vector — is impractical at scale, so vector databases use Approximate Nearest Neighbour (ANN) algorithms like HNSW (Hierarchical Navigable Small Worlds) to trade a small amount of recall for orders-of-magnitude speed improvements.'
+      },
+      {
+        type: 'section',
+        heading: 'ChromaDB for RAG Prototyping',
+        text: 'ChromaDB is the fastest path from zero to a working RAG system. It runs in-process with no external dependencies, persists to disk, and has a clean Python API. For DocuVision RAG, ChromaDB handled multi-modal embeddings — storing both text chunk vectors and VLM-generated descriptions of visual elements in the same collection. The metadata filtering API is expressive enough for most filtering needs: retrieve chunks from document X with confidence score above threshold Y. The limitation is scalability: beyond a few million vectors, performance degrades and you need a dedicated server.'
+      },
+      {
+        type: 'section',
+        heading: 'LanceDB for Developer Tooling',
+        text: 'LanceDB stores data in the Lance columnar format on local disk, enabling fast vector search without a running server process. For the VS Code extension, this was essential — spinning up a server process inside an IDE extension is a UX anti-pattern. LanceDB integrates naturally with the SQLite metadata store via the file path field, enabling joins between vector search results and structured metadata. It also supports efficient updates and deletions, which matters when the extension needs to re-index a modified file without rebuilding the entire index.'
+      },
+      {
+        type: 'section',
+        heading: 'Choosing the Right Vector Database',
+        text: 'For prototyping: ChromaDB. For local/embedded use cases: LanceDB. For production scale with a dedicated infrastructure team: Weaviate, Qdrant, or Pinecone. The most important non-functional requirement to evaluate is how the database handles index updates — some systems require a full re-index to update embeddings, which is prohibitive for dynamic knowledge bases. Always benchmark with your actual data distribution; synthetic benchmarks rarely reflect production behaviour.'
+      }
+    ]
   },
   {
     title: 'Beyond ChatGPT: Integrating Open-Source LLMs (Meta, Alibaba) in Production',
@@ -198,6 +328,32 @@ export const articles = [
     date: '2023-12-15',
     author: 'M. Qureshi',
     description: 'A practical guide to integrating and deploying open-source Large Language Models from providers like Meta and Alibaba into scalable production environments using Python and FastAPI.',
+    content: [
+      {
+        type: 'intro',
+        text: 'The default assumption in many AI projects is that OpenAI is the only viable LLM provider. That assumption is increasingly wrong. Open-source models from Meta (Llama 3), Alibaba (Qwen), Mistral, and others have closed the gap on many benchmark tasks, and for enterprise use cases, the case for open-source is often compelling: no per-token pricing at scale, full control over data residency, the ability to fine-tune on proprietary data, and no dependency on a third-party API that can change pricing or terms of service. This article covers the practical work of integrating these models into a production FastAPI backend.'
+      },
+      {
+        type: 'section',
+        heading: 'Model Selection and Trade-offs',
+        text: 'Not all open-source models are equal, and the right choice depends on your constraints. Llama 3 8B runs comfortably on a single A100 GPU and handles instruction-following tasks well. Qwen2.5 72B offers GPT-4-class performance on coding and reasoning tasks but requires multi-GPU inference. Smaller models like Phi-3 Mini run on CPUs, making them viable for local inference on developer machines. The practical question is: what is the smallest model that meets your quality bar? Every parameter you add increases latency, memory requirements, and serving cost.'
+      },
+      {
+        type: 'section',
+        heading: 'Serving with FastAPI and vLLM',
+        text: 'vLLM is the production-grade inference server for open-source LLMs. It implements PagedAttention for efficient KV cache management, continuous batching to maximise GPU utilisation, and an OpenAI-compatible API that makes it a drop-in replacement for the OpenAI Python SDK. The integration pattern is straightforward: run vLLM as a subprocess or Docker container, point your FastAPI backend at the local endpoint, and swap the base URL. At Logitech, this meant the application code required zero changes to switch between OpenAI, Azure OpenAI, and a locally served Qwen instance — only the configuration changed.'
+      },
+      {
+        type: 'section',
+        heading: 'Prompt Engineering for Different Model Families',
+        text: 'Each model family has its own chat template format. Llama 3 uses a specific BOS token and role tags; Qwen uses a different format; Mistral has its own. Sending prompts in the wrong format results in degraded performance or refusals. The transformers library tokeniser includes a built-in apply_chat_template method that handles this correctly for any supported model. Always use it rather than constructing prompt strings manually.'
+      },
+      {
+        type: 'section',
+        heading: 'Cost and Latency at Scale',
+        text: 'The economics change dramatically at scale. At low request volumes, OpenAI API costs are negligible. At 10M tokens per day, the numbers become significant. Running Llama 3 8B on two A10G instances delivers comparable quality for RAG tasks at roughly 60% lower cost per token at that volume. The break-even point depends on your traffic profile and quality requirements, but for any product with serious usage, the analysis is worth doing.'
+      }
+    ]
   },
   {
     title: 'Advanced Retrieval Techniques for RAG: Multi-Query & MMR',
@@ -205,6 +361,32 @@ export const articles = [
     date: '2024-01-01',
     author: 'M. Qureshi',
     description: 'Delve into advanced retrieval strategies such as multi-query retrieval and Maximum Marginal Relevance (MMR) to significantly improve the accuracy and diversity of responses in RAG systems.',
+    content: [
+      {
+        type: 'intro',
+        text: 'Basic RAG — embed query, retrieve top-k chunks by cosine similarity, generate response — works surprisingly well as a starting point. But it has two systematic failure modes. First, single-query retrieval is brittle: if the user phrases a question in a way that does not closely match the phrasing in your documents, relevant chunks are missed. Second, top-k retrieval by similarity often returns k near-duplicate chunks about the same narrow subtopic, wasting the context window. Multi-Query Retrieval and Maximum Marginal Relevance (MMR) are two techniques that directly address these failure modes. Both are implemented in LangChain and are straightforward to integrate.'
+      },
+      {
+        type: 'section',
+        heading: 'Multi-Query Retrieval',
+        text: 'The idea is simple: use an LLM to generate multiple phrasings of the user\'s original question, run retrieval independently for each phrasing, and take the union of the results. A question like "how does the system handle errors?" might be rephrased as "what is the error handling strategy?", "what happens when a request fails?", and "exception handling approach". Each phrasing retrieves a slightly different set of chunks. The union covers a much larger portion of the relevant document space than any single query alone. In practice, 3-5 generated queries provides most of the benefit without excessive latency overhead from parallel retrievals.'
+      },
+      {
+        type: 'section',
+        heading: 'Maximum Marginal Relevance (MMR)',
+        text: 'MMR solves the diversity problem. Instead of returning the top-k chunks purely by similarity to the query, MMR iteratively selects chunks that are simultaneously relevant to the query and dissimilar to already-selected chunks. The algorithm balances two objectives: relevance (similarity to query) and novelty (dissimilarity to the current selection set). A lambda parameter controls the trade-off — lambda=1.0 is pure similarity retrieval, lambda=0.0 selects maximally diverse chunks regardless of relevance. Values around 0.5–0.7 work well for most RAG applications, ensuring the LLM receives a context window that covers multiple facets of the topic rather than the same information repeated.'
+      },
+      {
+        type: 'section',
+        heading: 'Combining Both Techniques',
+        text: 'Multi-Query Retrieval and MMR compose naturally: use multi-query to expand the candidate set, then apply MMR to select the final k chunks from that expanded set. This two-stage approach — broad retrieval followed by diversity-aware selection — consistently outperforms either technique alone in my benchmarks on the Logitech AI backend. The latency cost is the additional LLM call for query generation (fast with a small model like GPT-4o-mini) plus the computational overhead of MMR selection (negligible at typical RAG scales).'
+      },
+      {
+        type: 'section',
+        heading: 'When to Apply These Techniques',
+        text: 'Multi-Query is most valuable when your knowledge base has heterogeneous phrasing — technical documentation, user-generated content, and formal specifications mixed together. MMR is most valuable when your chunks are granular and topically clustered — many small chunks about related subtopics. For long-form documents with already-diverse content, standard top-k retrieval may be sufficient. Always measure: run your retrieval pipeline against a golden evaluation set before and after adding complexity, and only keep the complexity if the numbers improve.'
+      }
+    ]
   },
 ];
 

@@ -25,7 +25,6 @@ export default function Navbar() {
     { name: 'Projects', href: '#projects' },
     { name: 'Education', href: '#education' },
     { name: 'Skills', href: '#skills' },
-    { name: 'Articles', href: '#articles' },
     { name: 'Contact', href: 'mailto:qureshisameem01@gmail.com' },
   ];
 
