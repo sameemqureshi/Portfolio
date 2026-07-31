@@ -168,7 +168,7 @@ export default function Home() {
               ))}
             </div>
             <div className="text-xs text-slate-500 text-right w-full">
-              Pune, India
+              India
             </div>
           </motion.div>
         </motion.header>
