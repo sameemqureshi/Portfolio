@@ -1,21 +1,15 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
-  // For GitHub Pages static export (production only)
-  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
-
-  // Subdirectory deployment: https://sameemqureshi.github.io/Portfolio/ (production only)
-  basePath: process.env.NODE_ENV === 'production' ? '/Portfolio' : undefined,
-
+  output: 'export',
+  basePath: isProd ? '/Portfolio' : '',
+  assetPrefix: isProd ? '/Portfolio/' : undefined,
   images: {
-    unoptimized: process.env.NODE_ENV === 'production', // Required for static export in production
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-      },
-    ],
+    unoptimized: true,
   },
+  trailingSlash: true,
 };
 
 export default nextConfig;
