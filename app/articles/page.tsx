@@ -1,68 +1,63 @@
-
 'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Calendar, ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { articles } from '../data';
 import Navbar from '../components/Navbar';
 
 const ArticlesPage = () => {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5 },
-  };
-
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans">
+    <div className="min-h-screen bg-black text-neutral-100">
       <Navbar />
-      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950">
-        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20" />
-      </div>
 
-      <main className="relative z-10 max-w-4xl mx-auto px-6 py-24">
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-24">
         <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16"
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
+          className="mb-20"
         >
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 mb-4">
-            Articles & Insights
+          <p className="font-mono text-xs tracking-[0.3em] uppercase text-neutral-500 mb-4">Writing</p>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-neutral-100 mb-4">
+            Articles &amp; Insights
           </h1>
-          <p className="text-lg text-slate-400">
-            Exploring AI, software development, and practical engineering.
+          <p className="text-lg text-neutral-500 max-w-xl">
+            Exploring AI infrastructure, software engineering, and practical system design.
           </p>
         </motion.header>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={{
-            animate: { transition: { staggerChildren: 0.1 } },
-          }}
-          initial="initial"
-          animate="animate"
-        >
-          {articles.map((article) => (
-            <motion.div key={article.slug} variants={fadeInUp}>
-              <Link href={`/articles/${article.slug}`}>
-                <div className="p-6 bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-colors cursor-pointer group rounded-2xl">
-                  <h2 className="text-2xl font-bold mb-2 text-slate-100 group-hover:text-cyan-400 transition-colors">{article.title}</h2>
-                  <p className="text-slate-400 text-sm mb-4">
-                    {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} by {article.author}
-                  </p>
-                  <p className="text-slate-400 leading-relaxed mb-4 line-clamp-2">{article.description}</p>
-                  <span className="text-cyan-400 font-medium flex items-center">
-                    Read More
-                    <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+        <div className="border-t border-neutral-800">
+          {articles.map((article, i) => (
+            <motion.div
+              key={article.slug}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+            >
+              <Link href={`/articles/${article.slug}`} className="group block">
+                <div className="flex items-start gap-6 py-8 border-b border-neutral-800/60 hover:bg-neutral-950/50 transition-colors px-2 -mx-2">
+                  <span className="font-mono text-sm text-neutral-600 pt-1 w-8 shrink-0">
+                    {String(i + 1).padStart(2, '0')}
                   </span>
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-xl md:text-2xl font-semibold text-neutral-100 group-hover:text-cyan-400 transition-colors mb-2">
+                      {article.title}
+                    </h2>
+                    <p className="text-neutral-500 text-sm leading-relaxed line-clamp-2 mb-3">
+                      {article.description}
+                    </p>
+                    <p className="font-mono text-xs text-neutral-600">
+                      {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                  </div>
+                  <ArrowUpRight className="w-5 h-5 text-neutral-600 group-hover:text-cyan-400 transition-colors mt-1 shrink-0" />
                 </div>
               </Link>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </main>
     </div>
   );

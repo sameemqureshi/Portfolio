@@ -2,55 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sameemqureshi.dev</loc>
-    <lastmod>2026-01-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://sameemqureshi.dev/articles</loc>
-    <lastmod>2026-01-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sameemqureshi.dev/projects/heart-disease-prediction-mlops</loc>
-    <lastmod>2026-01-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sameemqureshi.dev/projects/docuvision-rag</loc>
-    <lastmod>2026-01-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sameemqureshi.dev/projects/household-services-app</loc>
-    <lastmod>2026-01-14</lastmod>
+    <loc>https://sameemqureshi.dev/projects/yodoq-job-queue</loc>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sameemqureshi.dev/projects/speech-to-text-pipeline</loc>
-    <lastmod>2026-01-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sameemqureshi.dev/projects/sentiment-movie-reviews</loc>
-    <lastmod>2026-01-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sameemqureshi.dev/projects/answerly-chatbot</loc>
-    <lastmod>2026-01-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sameemqureshi.dev/projects/business-data-management</loc>
-    <lastmod>2026-01-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -75,24 +63,6 @@
   <url>
     <loc>https://sameemqureshi.dev/articles/vscode-ai-extension</loc>
     <lastmod>2023-11-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sameemqureshi.dev/articles/vector-databases-ai</loc>
-    <lastmod>2023-12-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sameemqureshi.dev/articles/open-source-llms</loc>
-    <lastmod>2023-12-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sameemqureshi.dev/articles/advanced-rag</loc>
-    <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

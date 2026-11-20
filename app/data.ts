@@ -1,5 +1,7 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 
+const basePath = process.env.NODE_ENV === 'production' ? '/Portfolio' : '';
+
 export const socialLinks = [
   { icon: Github, href: 'https://github.com/sameemqureshi', label: 'GitHub' },
   { icon: Linkedin, href: 'https://www.linkedin.com/in/sameemqureshi/', label: 'LinkedIn' },
@@ -8,152 +10,182 @@ export const socialLinks = [
 
 export const projects = [
   {
-    title: 'Heart Disease Prediction: End-to-End Production MLOps Pipeline on GCP',
+    title: 'Heart Disease Prediction: Production MLOps Pipeline on GCP',
     slug: 'heart-disease-prediction-mlops',
-    desc: 'Production-ready heart disease prediction system achieving 94% AUC with <200ms inference latency. End-to-end MLOps workflow from training to auto-scaled deployment on GKE, complete with CI/CD, observability, and model governance.',
-    tags: ['MLOps', 'GCP', 'Kubernetes', 'FastAPI', 'Docker', 'GitHub Actions', 'Prometheus', 'SHAP'],
-    image: '/projects/heart-disease-mlops.svg',
+    desc: 'Production-ready heart disease prediction system achieving 94% AUC with <200ms latency. End-to-end MLOps workflow on GKE with autoscaling, GitHub Actions CI/CD, Prometheus observability, and SHAP/Fairlearn/Evidently model governance.',
+    tags: ['MLOps', 'GCP', 'GKE', 'Kubernetes', 'FastAPI', 'Docker', 'GitHub Actions', 'Prometheus', 'SHAP', 'Fairlearn', 'Evidently'],
+    image: `${basePath}/projects/heart-disease-mlops.svg`,
     color: 'from-red-500/20 to-rose-600/20',
     link: '/projects/heart-disease-prediction-mlops',
     github: 'https://github.com/sameemqureshi/21f1000868_IITMBS_MLOPS_OPPE2',
     content: {
-      overview: 'A robust, production-grade machine learning pipeline for heart disease prediction. This project demonstrates a full MLOps lifecycle, ensuring model reliability, scalability, and maintainability in a cloud-native environment.',
+      overview: 'An end-to-end production MLOps pipeline for heart disease risk classification. The project demonstrates enterprise-grade model lifecycle management — from automated training and containerized inference to cloud-native GKE orchestration, real-time telemetry, and rigorous AI governance.',
       features: [
-        'Containerized FastAPI inference service deployed on Google Kubernetes Engine (GKE) with auto-scaling.',
-        'Automated CI/CD pipeline using GitHub Actions for building and pushing images to Artifact Registry.',
-        'Comprehensive observability with Prometheus metrics and structured logging.',
-        'Advanced model governance including SHAP-based explainability, fairness evaluation with Fairlearn, and drift detection with Evidently.'
+        'Containerized FastAPI inference service deployed on Google Kubernetes Engine (GKE) with Horizontal Pod Autoscaling and load balancing.',
+        'Automated CI/CD pipeline using GitHub Actions for linting, testing, Docker image creation, and rolling deployment to GCP Artifact Registry.',
+        'Comprehensive telemetry and observability with Prometheus metrics, structured JSON logging, and latency dashboards.',
+        'Model governance suite incorporating SHAP for explainable predictions, Fairlearn for demographic bias auditing, and Evidently for continuous feature drift monitoring.',
+        'High-concurrency stress testing with wrk handling 2,000+ concurrent requests while preserving <200ms latency.'
       ],
-      challenges: 'Ensuring consistent model performance and reliability in a production environment while managing infrastructure complexity and model fairness.',
-      solutions: 'Implemented a GitOps approach with automated pipelines. Integrated specialized tools for monitoring model drift and bias to maintain high standards of AI ethics and reliability.'
+      challenges: 'Balancing high throughput and low inference latency under dynamic loads while ensuring ethical model behavior, fairness across patient demographics, and zero-downtime rolling upgrades.',
+      solutions: 'Engineered a lightweight asynchronous FastAPI server with multi-worker configurations, integrated automated drift alerts to trigger retraining jobs, and implemented Kubernetes rolling update strategies with readiness/liveness health probes.'
     }
   },
   {
     title: 'DocuVision RAG: AI-Driven Visual Knowledge Extraction',
     slug: 'docuvision-rag',
-    desc: 'End-to-end RAG system for querying visually rich PDFs, images, and text using Vision Language Models and FastAPI. Achieved 40% improvement in retrieval accuracy over traditional text-only RAG with sourced, context-aware responses.',
-    tags: ['RAG', 'Python', 'FastAPI', 'PyTorch', 'Vision Language Models', 'ChromaDB'],
-    image: '/projects/docuvision-rag.svg',
+    desc: 'Multimodal Vision-Language RAG system for querying complex PDFs, diagrams, and scanned documents with context-aware visual retrieval. Delivers a 40% accuracy improvement over text-only RAG pipelines.',
+    tags: ['RAG', 'Vision Language Models', 'PyTorch', 'FastAPI', 'ChromaDB', 'Python'],
+    image: `${basePath}/projects/docuvision-rag.svg`,
     color: 'from-cyan-500/20 to-blue-600/20',
     link: '/projects/docuvision-rag',
     github: 'https://github.com/sameemqureshi/DocuVision-RAG-AI-Driven-Visual-Knowledge-Extraction',
     content: {
-      overview: 'Traditional RAG systems struggle with complex documents containing charts, diagrams, and tables. DocuVision RAG solves this by leveraging Vision Language Models (VLMs) to interpret visual elements alongside textual content, providing a holistic understanding of documents.',
+      overview: 'Traditional RAG pipelines struggle when documents contain charts, schematics, tables, and multi-column formatting. DocuVision RAG bridges this gap by marrying Vision Language Models (VLMs) with vector retrieval to extract and contextualize rich visual documents.',
       features: [
-        'Multi-modal ingestion pipeline capable of processing PDFs, images, and mixed-media documents.',
-        'Integration with ChromaDB for efficient vector storage and similarity search.',
-        'Context-aware retrieval that preserves document structure and layout information.',
-        'High-performance API built with FastAPI for real-time query processing.'
+        'Multimodal document parsing pipeline handling complex PDFs, high-resolution scans, charts, and technical drawings.',
+        'Deep layout analysis to preserve tabular hierarchies, reading order, and figure-caption relationships.',
+        'Vector embeddings generated and indexed using ChromaDB with metadata filtering across page sections.',
+        'FastAPI backend providing low-latency streaming endpoints for visual question answering with source page citations.'
       ],
-      challenges: 'Extracting meaningful semantic information from complex layouts (e.g., multi-column PDFs, embedded charts) was a major bottleneck. Standard OCR tools often lost context.',
-      solutions: 'Implemented a custom pre-processing pipeline using layout analysis models to segment documents into meaningful chunks before embedding. Used VLMs to generate textual descriptions for visual components, enriching the vector index.'
+      challenges: 'Standard OCR tools drop spatial hierarchies and misinterpret multi-column text and diagrams, creating degraded vector embeddings.',
+      solutions: 'Built a specialized pre-processing pipeline segmenting documents into semantic layout blocks, generating detailed visual captions via VLMs, and indexing composite text-visual embeddings.'
     }
   },
   {
-    title: 'Household Services App',
-    slug: 'household-services-app',
-    desc: 'Full-stack multi-role household services platform serving 3 user roles with 15+ service categories. Features task workflows, admin verification, async background jobs with Celery/Redis, and real-time data pipelines.',
-    tags: ['Python', 'Flask', 'SQLAlchemy', 'Vue.js', 'Redis', 'Celery'],
-    image: '/projects/household-services.svg',
-    color: 'from-purple-500/20 to-pink-600/20',
-    link: '/projects/household-services-app',
-    github: 'https://github.com/sameemqureshi/HouseholdServices',
+    title: 'YODOQ: Fault-Tolerant In-Memory Job Queue',
+    slug: 'yodoq-job-queue',
+    desc: 'Distributed in-memory task queue in Go featuring at-least-once delivery, lease-based job execution, WAL persistence, priority scheduling, and zero job loss under failure rates up to 50%.',
+    tags: ['Go', 'Concurrency', 'Distributed Systems', 'Write-Ahead Logging', 'Fault Tolerance'],
+    image: `${basePath}/projects/yodoq-job-queue.svg`,
+    color: 'from-emerald-500/20 to-teal-600/20',
+    link: '/projects/yodoq-job-queue',
+    github: 'https://github.com/sameemqureshi/YODOQ',
     content: {
-      overview: 'A comprehensive platform connecting service professionals with homeowners. It manages the entire lifecycle of a service request, from booking to completion and payment.',
+      overview: 'YODOQ is a high-performance, fault-tolerant in-memory asynchronous job processing queue built from scratch in Go. It enforces at-least-once processing semantics with lease timeouts, priority queues, and durable recovery.',
       features: [
-        'Role-based access control (RBAC) for Admins, Professionals, and Customers.',
-        'Asynchronous background jobs using Celery and Redis for email notifications and report generation.',
-        'Interactive dashboard built with Vue.js for real-time status tracking.',
-        'RESTful API backend with Flask and SQLAlchemy for robust data management.'
+        'Lease-based worker execution with automatic heartbeat checks and expired lease reclamation.',
+        'Write-Ahead Logging (WAL) engine ensuring zero job loss across abrupt process crashes and immediate state reconstruction on boot.',
+        'Priority scheduling with bounded exponential-backoff retries and stale acknowledgment rejection.',
+        'High-concurrency thread-safe architecture utilizing Go channels, sync primitives, and non-blocking state transitions.',
+        'Automated chaotic failure injection testing demonstrating zero task drops at simulated 50% worker crash rates.'
       ],
-      challenges: 'Handling concurrent bookings and ensuring data consistency across multiple user roles while maintaining a responsive UI.',
-      solutions: 'Utilized database transactions and optimistic locking in SQLAlchemy to prevent race conditions. Implemented a reactive frontend with Vue.js to provide instant feedback to users without full page reloads.'
+      challenges: 'Preventing duplicate executions while maintaining at-least-once delivery guarantees when worker nodes crash mid-job.',
+      solutions: 'Formulated a deterministic leasing protocol with monotonic fencing tokens and atomic log compaction for the WAL persistence layer.'
     }
   },
   {
     title: 'End-to-End Speech-to-Text Data Pipeline',
     slug: 'speech-to-text-pipeline',
-    desc: 'Scalable automated pipeline processing 500+ hours of audio for ASR dataset curation, reducing manual curation time by 70% using NVIDIA NeMo, ffmpeg, and Python tooling.',
-    tags: ['WebScraping', 'Audio Preprocessing', 'Text Processing', 'Python', 'NVIDIA NeMo', 'ffmpeg'],
-    image: '/projects/speech-to-text.svg',
-    color: 'from-emerald-500/20 to-teal-600/20',
+    desc: 'Scalable automated audio processing pipeline ingesting 500+ hours of speech for ASR dataset curation, cutting manual preprocessing overhead by 70% using yt-dlp, ffmpeg, and NVIDIA NeMo.',
+    tags: ['ASR', 'Audio Processing', 'NVIDIA NeMo', 'ffmpeg', 'Python', 'Web Scraping'],
+    image: `${basePath}/projects/speech-to-text.svg`,
+    color: 'from-amber-500/20 to-orange-600/20',
     link: '/projects/speech-to-text-pipeline',
     github: 'https://github.com/sameemqureshi/Speech-To-Text',
     content: {
-      overview: 'Building high-quality ASR datasets requires processing thousands of hours of audio. This pipeline automates the collection, cleaning, and transcription of audio data for training speech models.',
+      overview: 'High-quality automatic speech recognition (ASR) depends on cleanly curated, time-aligned audio datasets. This project automates end-to-end ingestion, quality filtering, acoustic normalization, and transcript alignment for acoustic model fine-tuning.',
       features: [
-        'Automated web scraping and audio extraction from various sources.',
-        'Audio normalization and noise reduction using ffmpeg.',
-        'Speaker diarization and transcription using NVIDIA NeMo toolkit.',
-        'Quality assurance reporting to identify and filter low-confidence transcriptions.'
+        'Parallelized audio scraping and extraction pipeline powered by yt-dlp and multiprocessing workers.',
+        'Automated audio normalization, dynamic range compression, and silence trimming using ffmpeg pipelines.',
+        'Acoustic segmentation and pseudo-transcription alignment utilizing NVIDIA NeMo toolkit.',
+        'Automated signal-to-noise ratio (SNR) filtering to eliminate degraded or clipped audio samples.'
       ],
-      challenges: 'Processing large volumes of audio data efficiently and handling diverse audio formats and quality levels.',
-      solutions: 'Designed a parallel processing architecture using Python multiprocessing. Implemented adaptive filtering logic to automatically discard or flag poor-quality audio segments based on signal-to-noise ratio.'
+      challenges: 'Handling unpredictable audio formats, background noise, differing sample rates, and non-speech artifacts across hundreds of gigabytes of recordings.',
+      solutions: 'Constructed modular streaming pipelines converting incoming streams into uniform 16kHz mono WAV chunks with adaptive threshold validation.'
     }
   },
   {
     title: 'Sentiment Prediction on Movie Reviews',
     slug: 'sentiment-movie-reviews',
-    desc: 'NLP pipeline achieving 89% accuracy on movie review sentiment classification across 50K+ reviews, comparing Naive Bayes, Logistic Regression, and SVM classifiers with comprehensive evaluation.',
-    tags: ['NLP', 'Python', 'Machine Learning', 'Data Preprocessing', 'Model Evaluation'],
-    image: '/projects/sentiment-analysis.svg',
-    color: 'from-amber-500/20 to-orange-600/20',
+    desc: 'NLP classification pipeline evaluating 50K+ reviews, benchmarking Naive Bayes, Logistic Regression, and Support Vector Machines with TF-IDF feature engineering to achieve 89% accuracy.',
+    tags: ['NLP', 'Machine Learning', 'Python', 'Scikit-learn', 'Text Analytics'],
+    image: `${basePath}/projects/sentiment-analysis.svg`,
+    color: 'from-fuchsia-500/20 to-purple-600/20',
     link: '/projects/sentiment-movie-reviews',
     github: 'https://github.com/sameemqureshi/Sentiment-Analysis',
     content: {
-      overview: 'An analytical tool designed to gauge public opinion by classifying movie reviews as positive or negative. It serves as a foundational project for understanding NLP workflows.',
+      overview: 'A comparative natural language processing pipeline studying classifier dynamics and linguistic feature representation across 50,000 long-form movie reviews.',
       features: [
-        'Text preprocessing pipeline: tokenization, lemmatization, and stop-word removal.',
-        'Comparison of multiple classifiers: Naive Bayes, Logistic Regression, and SVM.',
-        'Visualization of model performance using confusion matrices and ROC curves.',
-        'Deployment-ready model serialization.'
+        'Text normalization, n-gram tokenization, lemmatization, and customized stop-word pruning.',
+        'Systematic benchmark comparing Naive Bayes, Logistic Regression, and Support Vector Classifiers.',
+        'Hyperparameter optimization using stratified cross-validation and ROC-AUC performance curves.',
+        'Exportable inference pipeline designed for lightweight embedding into analytics workflows.'
       ],
-      challenges: 'Dealing with sarcasm and context-dependent sentiment in informal review text.',
-      solutions: 'Experimented with n-gram features and TF-IDF weighting to capture more context. Fine-tuned model hyperparameters to balance precision and recall.'
-    }
-  },
-  {
-    title: 'Answerly – Q&A Chatbot using LLM and LangChain',
-    slug: 'answerly-chatbot',
-    desc: 'Conversational Q&A assistant leveraging LangChain, Hugging Face models, and vector stores to deliver grounded answers with strict prompt grounding, reducing hallucination over enterprise data.',
-    tags: ['LLM', 'LangChain', 'Hugging Face', 'Vector Stores', 'DataStax', 'Python'],
-    image: '/projects/answerly-chatbot.svg',
-    color: 'from-fuchsia-500/20 to-purple-600/20',
-    link: '/projects/answerly-chatbot',
-    github: 'https://github.com/sameemqureshi/Answerly-Chat-Bot',
-    content: {
-      overview: 'Answerly is a bridge between static enterprise knowledge bases and dynamic user queries. It uses RAG to provide accurate, source-cited answers.',
-      features: [
-        'Integration with DataStax Astra DB for scalable vector storage.',
-        'Usage of open-source LLMs via Hugging Face for cost-effective inference.',
-        'Memory management to maintain context across multi-turn conversations.',
-        'Streamlit-based user interface for easy interaction.'
-      ],
-      challenges: 'Ensuring the chatbot restricts its answers to the provided context and avoids hallucinations.',
-      solutions: 'Implemented strict prompt engineering techniques and a retrieval verification step. Used LangChain chains to enforce source grounding in the final response generation.'
-    }
-  },
-  {
-    title: 'Business Data Management Capstone',
-    slug: 'business-data-management',
-    desc: 'Analytics capstone analyzing 10K+ enterprise sales records for demand forecasting, identifying seasonal patterns and product performance insights for data-driven business decisions.',
-    tags: ['Data Collection', 'Data Analysis', 'Data Visualization', 'Microsoft Excel'],
-    image: '/projects/business-data.svg',
-    color: 'from-sky-500/20 to-indigo-600/20',
-    link: '/projects/business-data-management',
-    github: 'https://github.com/sameemqureshi?tab=repositories',
-    content: {
-      overview: 'A deep dive into business intelligence, transforming raw sales data into actionable strategic insights.',
-      features: [
-        'Comprehensive data cleaning and normalization of sales records.',
-        'Dashboard creation for tracking key performance indicators (KPIs).',
-        'Trend analysis to identify seasonal demand patterns.',
-        'Predictive modeling for future inventory requirements.'
-      ],
-      challenges: 'Aggregating data from disparate sources with inconsistent formatting.',
-      solutions: 'Developed standardized data transformation protocols in Excel and Python. Created automated validation scripts to ensure data integrity before analysis.'
+      challenges: 'Mitigating misclassifications stemming from subtle sarcastic prose and mixed polarity phrases.',
+      solutions: 'Implemented sub-linear TF-IDF scaling paired with bi-gram feature extraction to preserve contextual sentiment modifiers.'
     }
   }
+];
+
+export const experience = [
+  {
+    company: 'Logitech',
+    role: 'AI/ML/GenAI Engineer',
+    period: 'Jun 2025 – Present',
+    highlights: [
+      'LLM Infrastructure & Model Platform: Delivered 20+ model integrations for LogiQ\'s FastAPI LLM gateway, serving 5,000+ users with OpenAI, Anthropic, Gemini, Perplexity, and open-weight models across AWS Bedrock, Vertex AI, and Azure. Built initial Model Garden PostgreSQL/SQLAlchemy schemas and APIs for model metadata and pricing, integrating Redis caching, RBAC cloud-routing permissions, per-model rate limits, and token/cache-aware usage accounting with comprehensive provider test suites.',
+      'Enterprise AI Applications & Agentic Workflows: Engineered web-search and image-generation/editing capabilities within a LangChain/LangGraph enterprise chatbot. Built MCP-exposed RAG knowledge-search tools with SSE streaming. Integrated Logitech\'s Design System MCP and Brand Centre MCP into AI workflows. Developed React/TypeScript controls for reasoning, model selection, and prompt-caching support with Opik tracing for LLM Council workflows. Deployed S3-backed documentation MCP services on AWS Bedrock AgentCore.',
+      'Developer Console, Usage & Product Analytics: Built Developer Console APIs for usage statistics, API logs, per-model token breakdowns, and spend visibility. Extended daily AWS Lambda ETL and shared pricing logic for cross-cloud billing (AWS/Azure/GCP), aggregating token, cache, tool, and long-context costs with deduplication. Maintained an EventBridge → Lambda → Firehose → S3 telemetry pipeline tracking connector usage and authorization flows.',
+      'Internal AI Enablement & MCP Infrastructure: Built a permission-aware internal MCP server for the LogiQ ecosystem, connecting conversational assistants to enterprise capabilities: model/pricing lookups, personal budget status, organizational context, and authorized team-spend analytics.'
+    ],
+    stack: ['Python', 'FastAPI', 'LangChain', 'LangGraph', 'Model Context Protocol (MCP)', 'PostgreSQL', 'SQLAlchemy', 'Redis', 'React', 'TypeScript', 'AWS Bedrock', 'AWS AgentCore', 'Vertex AI', 'Azure', 'Opik', 'Go']
+  },
+  {
+    company: 'Logitech',
+    role: 'AI/ML/LLM Intern',
+    period: 'Mar 2024 – Jun 2025',
+    highlights: [
+      'AI Developer Tools & QBits Assistant: Developed core features of LogiQ\'s QBits VS Code coding assistant, including inline code suggestions, documentation generation, unit-test authoring, code fixes, commit messages, and automated reviews.',
+      'Tree-sitter Code Indexing & Hybrid Retrieval: Built repository-level context indexing using Tree-sitter AST parsing, SQLite snippet/symbol metadata storage, and LanceDB vector retrieval with hash-based incremental re-indexing.',
+      'Developer Enablement: Built Codex CLI and Claude Code setup tooling with multi-profile configurations and automated environment bootstrapping.'
+    ],
+    stack: ['Python', 'FastAPI', 'AWS Serverless', 'Tree-sitter', 'SQLite', 'LanceDB', 'Azure', 'OpenAI', 'Bedrock', 'VS Code Extensions', 'RAG', 'Next.js', 'Redis']
+  }
+];
+
+export const education = [
+  {
+    period: '2020 – 2026',
+    degree: "Bachelor's in Data Science and Applications",
+    institute: 'IIT Madras',
+    note: 'CGPA: 7.88'
+  },
+  {
+    period: '2020 – 2024',
+    degree: "Bachelor's in Computer Science",
+    institute: 'DYPIEMR, Pune',
+    note: 'CGPA: 8.70'
+  },
+  {
+    period: '2018 – 2020',
+    degree: 'Class 12th HSC (Science)',
+    institute: 'Maulana Azad College, Aurangabad',
+    note: '86.00%'
+  },
+  {
+    period: '2017 – 2018',
+    degree: 'Class 10th SSC',
+    institute: 'Saint Francis De Sales High School, Aurangabad',
+    note: '91.00%'
+  }
+];
+
+export const skills = {
+  genai: ['LangChain', 'LangGraph', 'Model Context Protocol (MCP)', 'RAG', 'Vision Language Models (VLMs)', 'Embeddings', 'PyTorch', 'Scikit-learn', 'LanceDB', 'ChromaDB'],
+  backend: ['FastAPI', 'Flask', 'React', 'REST APIs', 'PostgreSQL', 'SQLAlchemy', 'Redis', 'SQLite', 'Tree-sitter', 'Concurrency', 'Write-Ahead Logging (WAL)'],
+  cloud: ['AWS (Bedrock, AgentCore, Lambda, EventBridge, Firehose, S3)', 'GCP (Vertex AI, GKE)', 'Microsoft Azure'],
+  mlops: ['Docker', 'Kubernetes', 'CI/CD (GitHub Actions)', 'Prometheus', 'Opik', 'Evidently', 'SHAP', 'Fairlearn'],
+  languages: ['Python', 'TypeScript', 'JavaScript', 'SQL', 'Java', 'Go']
+};
+
+export const certifications = [
+  'Foundation Level Certificate – IITM BS',
+  'Diploma Level Certificate – IITM BS',
+  'Python – Programming for Everybody (Coursera)',
+  'Computer Networks – NPTEL',
+  'Social Networks – NPTEL',
+  'SQL – HackerRank'
 ];
 
 export const articles = [
@@ -161,7 +193,7 @@ export const articles = [
     title: 'End-to-End MLOps on GCP: From Training to Deployment',
     slug: 'mlops-on-gcp',
     date: '2024-02-01',
-    author: 'M. Qureshi',
+    author: 'Sameem Qureshi',
     description: 'A comprehensive guide to building production-ready MLOps pipelines on Google Cloud Platform, covering containerization, Kubernetes deployment, and automated CI/CD with GitHub Actions.',
     content: [
       {
@@ -194,12 +226,12 @@ export const articles = [
     title: 'Building Serverless Analytics Pipelines with AWS EventBridge & Lambda',
     slug: 'aws-serverless-analytics',
     date: '2024-02-15',
-    author: 'M. Qureshi',
+    author: 'Sameem Qureshi',
     description: 'Learn how to design and implement scalable, serverless telemetry pipelines using AWS EventBridge, Lambda, Kinesis, and S3 for real-time application usage analytics.',
     content: [
       {
         type: 'intro',
-        text: 'Understanding how users actually interact with your software is one of the highest-leverage investments a product team can make. At Logitech, I designed a serverless telemetry pipeline that captures application usage events from desktop clients, routes and enriches them in real time, and lands them in an S3-based data lake ready for analysis. This is what that architecture looks like and why each component was chosen.'
+        text: 'Understanding how users actually interact with your software is one of the highest-leverage investments a product team can make. At Logitech, I worked on serverless telemetry pipelines that capture application usage events from desktop clients, route and enrich them in real time, and land them in an S3-based data lake ready for analysis.'
       },
       {
         type: 'section',
@@ -209,12 +241,12 @@ export const articles = [
       {
         type: 'section',
         heading: 'Pipeline Design: EventBridge → Lambda → Firehose → S3',
-        text: 'Application clients publish structured JSON events to an EventBridge custom event bus. EventBridge rules pattern-match on event fields to route events to the appropriate Lambda processor. Each Lambda function enriches the event — adding server-side timestamps, user segment metadata, and geolocation — before writing to a Kinesis Data Firehose delivery stream. Firehose buffers events and delivers them to S3 in Parquet format, partitioned by date and event type. This partitioning is critical: Athena queries over partitioned Parquet files are orders of magnitude faster and cheaper than scanning raw JSON.'
+        text: 'Application clients publish structured JSON events to an EventBridge custom event bus. EventBridge rules pattern-match on event fields to route events to the appropriate Lambda processor. Each Lambda function enriches the event — adding server-side timestamps, user segment metadata, and geolocation — before writing to a Kinesis Data Firehose delivery stream. Firehose buffers events and delivers them to S3 in Parquet format, partitioned by date and event type.'
       },
       {
         type: 'section',
         heading: 'Trigger Detection and Structured Logging',
-        text: 'Not every mouse click is analytically interesting. The Lambda enrichment layer implements trigger detection logic — identifying meaningful user actions like feature activations, session starts, and error states — and annotates events accordingly. Structured logging with consistent field names across all Lambda functions makes downstream querying predictable. Every log line is a JSON object with a fixed schema, which means CloudWatch Insights queries are fast and reliable.'
+        text: 'Not every interaction is analytically interesting. The Lambda enrichment layer implements trigger detection logic — identifying meaningful user actions like feature activations, session starts, and error states — and annotates events accordingly. Structured logging with consistent field names across all Lambda functions makes downstream querying predictable. Every log line is a JSON object with a fixed schema, which means CloudWatch Insights queries are fast and reliable.'
       },
       {
         type: 'section',
@@ -227,7 +259,7 @@ export const articles = [
     title: 'Mastering RAG: Building Context-Aware LLM Applications',
     slug: 'mastering-rag',
     date: '2023-11-01',
-    author: 'M. Qureshi',
+    author: 'Sameem Qureshi',
     description: 'A deep dive into Retrieval Augmented Generation (RAG) and how to build LLM applications that provide grounded, context-aware responses, leveraging techniques for efficient information retrieval.',
     content: [
       {
@@ -237,22 +269,22 @@ export const articles = [
       {
         type: 'section',
         heading: 'The Core RAG Loop',
-        text: 'A RAG system has three stages. First, ingestion: documents are split into chunks, each chunk is converted to a dense vector embedding using a model like text-embedding-3-small, and the vectors are stored in a vector database alongside the original text. Second, retrieval: when a user submits a query, the query is embedded using the same model, and the vector database returns the top-k most similar chunks by cosine similarity. Third, generation: the retrieved chunks are injected into the LLM prompt as context, and the model generates a response grounded in that context rather than its parametric knowledge alone.'
+        text: 'A RAG system has three stages. First, ingestion: documents are split into chunks, each chunk is converted to a dense vector embedding, and the vectors are stored in a vector database alongside the original text. Second, retrieval: when a user submits a query, the query is embedded using the same model, and the vector database returns the top-k most similar chunks by cosine similarity. Third, generation: the retrieved chunks are injected into the LLM prompt as context, and the model generates a response grounded in that context.'
       },
       {
         type: 'section',
         heading: 'Chunking Strategy Is Everything',
-        text: 'The single biggest lever on RAG quality is how you split documents. Fixed-size chunking (e.g. 512 tokens with 50-token overlap) is a reasonable baseline, but it frequently splits sentences mid-thought. Recursive character splitting respects paragraph and sentence boundaries, producing more coherent chunks. For structured content like code or markdown, specialised splitters that understand the document structure produce dramatically better results. The overlap between chunks is important too — without it, retrievals that span a chunk boundary miss critical context.'
+        text: 'The single biggest lever on RAG quality is how you split documents. Fixed-size chunking is a reasonable baseline, but it frequently splits sentences mid-thought. Recursive character splitting respects paragraph and sentence boundaries, producing more coherent chunks. For structured content like code or markdown, specialised splitters that understand document syntax produce dramatically better results.'
       },
       {
         type: 'section',
         heading: 'Evaluating Retrieval Quality',
-        text: 'A RAG system can fail at two independent points: retrieval and generation. If the right chunks are not retrieved, no amount of prompting will produce a correct answer. Measure retrieval quality separately using hit rate and mean reciprocal rank (MRR) against a golden dataset of query–answer pairs. Only after retrieval quality is solid should you focus on generation quality metrics like faithfulness (does the answer contradict the context?) and answer relevance.'
+        text: 'A RAG system can fail at two independent points: retrieval and generation. If the right chunks are not retrieved, no amount of prompting will produce a correct answer. Measure retrieval quality separately using hit rate and mean reciprocal rank (MRR) against a golden dataset of query–answer pairs.'
       },
       {
         type: 'section',
         heading: 'Production Considerations',
-        text: 'In production, latency and cost are real constraints. Caching embeddings for frequently seen queries reduces both. Hybrid retrieval — combining dense vector search with sparse BM25 keyword search — often outperforms either approach alone, especially for queries containing rare terms or proper nouns. Guardrails that check whether the retrieved context actually contains information relevant to the query can prevent the model from hallucinating when context is weak.'
+        text: 'In production, latency and cost are real constraints. Caching embeddings for frequently seen queries reduces both. Hybrid retrieval — combining dense vector search with sparse BM25 keyword search — often outperforms either approach alone, especially for queries containing rare terms or proper nouns.'
       }
     ]
   },
@@ -260,192 +292,28 @@ export const articles = [
     title: 'Developing VS Code Extensions with AI: Code Intelligence & Privacy',
     slug: 'vscode-ai-extension',
     date: '2023-11-15',
-    author: 'M. Qureshi',
-    description: 'Learn the architectural patterns and implementation details of creating an AI-powered VS Code extension, focusing on structured code indexing, hybrid storage, and privacy-preserving LLM integrations.',
+    author: 'Sameem Qureshi',
+    description: 'Architectural patterns and implementation details of AI-powered developer tooling, structured AST code indexing, hybrid vector-symbol storage, and privacy-preserving LLM integrations.',
     content: [
       {
         type: 'intro',
-        text: 'Building an AI-powered VS Code extension that genuinely understands your codebase — not just the file you have open — requires solving several hard engineering problems at once: how do you index a large repository efficiently, how do you retrieve the most relevant context for a query, and how do you do all of this without sending your entire codebase to a third-party API? At Logitech, I built exactly this system. Here is the architecture.'
+        text: 'Building an AI-powered VS Code extension that genuinely understands a repository — not just the file open in the active editor — requires solving several hard engineering problems at once: how do you index a large repository efficiently, how do you retrieve the most relevant context for a query, and how do you do all of this without sending proprietary code to third-party endpoints?'
       },
       {
         type: 'section',
         heading: 'Parsing Code with Tree-sitter',
-        text: 'Text-level chunking works for prose documents, but code has structure that matters. A function definition, its docstring, and its call sites are related in ways that line-based splitting cannot capture. Tree-sitter provides a language-aware parser that produces a concrete syntax tree for any supported language. By walking the AST, the indexer extracts semantically meaningful units — functions, classes, imports — and stores them with their type, name, file path, and line range. This structured metadata enables retrieval that understands code, not just text.'
+        text: 'Text-level chunking works for prose documents, but code has syntax and scope that matter. A function definition, its docstring, and its call sites are related in ways line-based splitting cannot capture. Tree-sitter provides a language-aware parser producing a concrete syntax tree. By walking the AST, the indexer extracts semantically meaningful units — functions, classes, interfaces — storing them with their symbol signature, file path, and line range.'
       },
       {
         type: 'section',
         heading: 'Hybrid Storage: SQLite + LanceDB',
-        text: 'The indexer maintains two parallel stores. SQLite holds metadata: symbol names, types, file paths, and the raw source text. This enables fast keyword search and exact lookups by symbol name. LanceDB holds vector embeddings of the same code chunks. When a developer asks a question, the extension runs both a keyword search against SQLite and a semantic search against LanceDB, then merges and re-ranks the results. Hybrid retrieval consistently outperforms either approach alone — keyword search handles exact symbol names, semantic search handles conceptual queries.'
+        text: 'The indexer maintains two parallel stores: SQLite holds structural metadata (symbol names, types, file paths, raw syntax ranges) enabling instant keyword search and exact symbol lookups. LanceDB holds vector embeddings of the same code chunks for conceptual semantic queries. When a developer asks a question, the extension runs both and re-ranks the candidate context.'
       },
       {
         type: 'section',
-        heading: 'Privacy-Preserving LLM Integration',
-        text: 'Sending proprietary source code to a public API endpoint is a non-starter for enterprise software. The extension architecture supports multiple LLM backends: a local Ollama instance for fully private inference, an Azure OpenAI endpoint on a private network, or an external provider with explicit user consent. The LLM never receives the full codebase — it receives only the retrieved context chunks relevant to the current query, minimising the surface area of any potential data exposure.'
-      },
-      {
-        type: 'section',
-        heading: 'Developer Experience Details',
-        text: 'The extension uses the VS Code Language Server Protocol for inline completion suggestions, giving it access to cursor position and surrounding context. An incremental indexer watches for file save events and updates only the affected file in both stores, keeping the index fresh without expensive full re-indexing. The UX lesson: background indexing must be completely invisible. Any latency or UI jank during indexing kills adoption.'
+        heading: 'Incremental Indexing & Privacy',
+        text: 'Incremental indexing watches for file save events, hashes content chunks, and updates only modified files in both stores. Privacy is preserved by injecting strictly scoped context chunks into user queries, avoiding blanket repository exfiltration.'
       }
     ]
-  },
-  {
-    title: 'Leveraging Vector Databases for Semantic Search in AI Systems',
-    slug: 'vector-databases-ai',
-    date: '2023-12-01',
-    author: 'M. Qureshi',
-    description: 'Explore the power of vector databases like LanceDB and ChromaDB for enabling semantic search and efficient similarity retrieval in modern AI and RAG applications.',
-    content: [
-      {
-        type: 'intro',
-        text: 'Traditional databases answer questions about exact values: give me all users where country equals "India". Vector databases answer a different kind of question: give me the documents most similar in meaning to this query. This capability — semantic similarity search — is the backbone of every RAG system, recommendation engine, and duplicate detection pipeline built on top of modern embeddings. This article explains how vector databases work, when to use which one, and the practical engineering decisions that matter in production.'
-      },
-      {
-        type: 'section',
-        heading: 'How Vector Search Works',
-        text: 'An embedding model converts text, images, or any other data into a dense numerical vector — typically 768 to 3072 dimensions for modern language models. Vectors that are semantically similar land close together in this high-dimensional space. A vector database stores these vectors and, given a query vector, retrieves the k nearest neighbours by distance metric (cosine similarity or L2 distance). The naive approach — computing distance to every stored vector — is impractical at scale, so vector databases use Approximate Nearest Neighbour (ANN) algorithms like HNSW (Hierarchical Navigable Small Worlds) to trade a small amount of recall for orders-of-magnitude speed improvements.'
-      },
-      {
-        type: 'section',
-        heading: 'ChromaDB for RAG Prototyping',
-        text: 'ChromaDB is the fastest path from zero to a working RAG system. It runs in-process with no external dependencies, persists to disk, and has a clean Python API. For DocuVision RAG, ChromaDB handled multi-modal embeddings — storing both text chunk vectors and VLM-generated descriptions of visual elements in the same collection. The metadata filtering API is expressive enough for most filtering needs: retrieve chunks from document X with confidence score above threshold Y. The limitation is scalability: beyond a few million vectors, performance degrades and you need a dedicated server.'
-      },
-      {
-        type: 'section',
-        heading: 'LanceDB for Developer Tooling',
-        text: 'LanceDB stores data in the Lance columnar format on local disk, enabling fast vector search without a running server process. For the VS Code extension, this was essential — spinning up a server process inside an IDE extension is a UX anti-pattern. LanceDB integrates naturally with the SQLite metadata store via the file path field, enabling joins between vector search results and structured metadata. It also supports efficient updates and deletions, which matters when the extension needs to re-index a modified file without rebuilding the entire index.'
-      },
-      {
-        type: 'section',
-        heading: 'Choosing the Right Vector Database',
-        text: 'For prototyping: ChromaDB. For local/embedded use cases: LanceDB. For production scale with a dedicated infrastructure team: Weaviate, Qdrant, or Pinecone. The most important non-functional requirement to evaluate is how the database handles index updates — some systems require a full re-index to update embeddings, which is prohibitive for dynamic knowledge bases. Always benchmark with your actual data distribution; synthetic benchmarks rarely reflect production behaviour.'
-      }
-    ]
-  },
-  {
-    title: 'Beyond ChatGPT: Integrating Open-Source LLMs (Meta, Alibaba) in Production',
-    slug: 'open-source-llms',
-    date: '2023-12-15',
-    author: 'M. Qureshi',
-    description: 'A practical guide to integrating and deploying open-source Large Language Models from providers like Meta and Alibaba into scalable production environments using Python and FastAPI.',
-    content: [
-      {
-        type: 'intro',
-        text: 'The default assumption in many AI projects is that OpenAI is the only viable LLM provider. That assumption is increasingly wrong. Open-source models from Meta (Llama 3), Alibaba (Qwen), Mistral, and others have closed the gap on many benchmark tasks, and for enterprise use cases, the case for open-source is often compelling: no per-token pricing at scale, full control over data residency, the ability to fine-tune on proprietary data, and no dependency on a third-party API that can change pricing or terms of service. This article covers the practical work of integrating these models into a production FastAPI backend.'
-      },
-      {
-        type: 'section',
-        heading: 'Model Selection and Trade-offs',
-        text: 'Not all open-source models are equal, and the right choice depends on your constraints. Llama 3 8B runs comfortably on a single A100 GPU and handles instruction-following tasks well. Qwen2.5 72B offers GPT-4-class performance on coding and reasoning tasks but requires multi-GPU inference. Smaller models like Phi-3 Mini run on CPUs, making them viable for local inference on developer machines. The practical question is: what is the smallest model that meets your quality bar? Every parameter you add increases latency, memory requirements, and serving cost.'
-      },
-      {
-        type: 'section',
-        heading: 'Serving with FastAPI and vLLM',
-        text: 'vLLM is the production-grade inference server for open-source LLMs. It implements PagedAttention for efficient KV cache management, continuous batching to maximise GPU utilisation, and an OpenAI-compatible API that makes it a drop-in replacement for the OpenAI Python SDK. The integration pattern is straightforward: run vLLM as a subprocess or Docker container, point your FastAPI backend at the local endpoint, and swap the base URL. At Logitech, this meant the application code required zero changes to switch between OpenAI, Azure OpenAI, and a locally served Qwen instance — only the configuration changed.'
-      },
-      {
-        type: 'section',
-        heading: 'Prompt Engineering for Different Model Families',
-        text: 'Each model family has its own chat template format. Llama 3 uses a specific BOS token and role tags; Qwen uses a different format; Mistral has its own. Sending prompts in the wrong format results in degraded performance or refusals. The transformers library tokeniser includes a built-in apply_chat_template method that handles this correctly for any supported model. Always use it rather than constructing prompt strings manually.'
-      },
-      {
-        type: 'section',
-        heading: 'Cost and Latency at Scale',
-        text: 'The economics change dramatically at scale. At low request volumes, OpenAI API costs are negligible. At 10M tokens per day, the numbers become significant. Running Llama 3 8B on two A10G instances delivers comparable quality for RAG tasks at roughly 60% lower cost per token at that volume. The break-even point depends on your traffic profile and quality requirements, but for any product with serious usage, the analysis is worth doing.'
-      }
-    ]
-  },
-  {
-    title: 'Advanced Retrieval Techniques for RAG: Multi-Query & MMR',
-    slug: 'advanced-rag',
-    date: '2024-01-01',
-    author: 'M. Qureshi',
-    description: 'Delve into advanced retrieval strategies such as multi-query retrieval and Maximum Marginal Relevance (MMR) to significantly improve the accuracy and diversity of responses in RAG systems.',
-    content: [
-      {
-        type: 'intro',
-        text: 'Basic RAG — embed query, retrieve top-k chunks by cosine similarity, generate response — works surprisingly well as a starting point. But it has two systematic failure modes. First, single-query retrieval is brittle: if the user phrases a question in a way that does not closely match the phrasing in your documents, relevant chunks are missed. Second, top-k retrieval by similarity often returns k near-duplicate chunks about the same narrow subtopic, wasting the context window. Multi-Query Retrieval and Maximum Marginal Relevance (MMR) are two techniques that directly address these failure modes. Both are implemented in LangChain and are straightforward to integrate.'
-      },
-      {
-        type: 'section',
-        heading: 'Multi-Query Retrieval',
-        text: 'The idea is simple: use an LLM to generate multiple phrasings of the user\'s original question, run retrieval independently for each phrasing, and take the union of the results. A question like "how does the system handle errors?" might be rephrased as "what is the error handling strategy?", "what happens when a request fails?", and "exception handling approach". Each phrasing retrieves a slightly different set of chunks. The union covers a much larger portion of the relevant document space than any single query alone. In practice, 3-5 generated queries provides most of the benefit without excessive latency overhead from parallel retrievals.'
-      },
-      {
-        type: 'section',
-        heading: 'Maximum Marginal Relevance (MMR)',
-        text: 'MMR solves the diversity problem. Instead of returning the top-k chunks purely by similarity to the query, MMR iteratively selects chunks that are simultaneously relevant to the query and dissimilar to already-selected chunks. The algorithm balances two objectives: relevance (similarity to query) and novelty (dissimilarity to the current selection set). A lambda parameter controls the trade-off — lambda=1.0 is pure similarity retrieval, lambda=0.0 selects maximally diverse chunks regardless of relevance. Values around 0.5–0.7 work well for most RAG applications, ensuring the LLM receives a context window that covers multiple facets of the topic rather than the same information repeated.'
-      },
-      {
-        type: 'section',
-        heading: 'Combining Both Techniques',
-        text: 'Multi-Query Retrieval and MMR compose naturally: use multi-query to expand the candidate set, then apply MMR to select the final k chunks from that expanded set. This two-stage approach — broad retrieval followed by diversity-aware selection — consistently outperforms either technique alone in my benchmarks on the Logitech AI backend. The latency cost is the additional LLM call for query generation (fast with a small model like GPT-4o-mini) plus the computational overhead of MMR selection (negligible at typical RAG scales).'
-      },
-      {
-        type: 'section',
-        heading: 'When to Apply These Techniques',
-        text: 'Multi-Query is most valuable when your knowledge base has heterogeneous phrasing — technical documentation, user-generated content, and formal specifications mixed together. MMR is most valuable when your chunks are granular and topically clustered — many small chunks about related subtopics. For long-form documents with already-diverse content, standard top-k retrieval may be sufficient. Always measure: run your retrieval pipeline against a golden evaluation set before and after adding complexity, and only keep the complexity if the numbers improve.'
-      }
-    ]
-  },
-];
-
-export const testimonials = [
-  {
-    name: 'Sarah Chen',
-    role: 'Senior Product Manager',
-    text: 'Sameem transformed our vague requirements into a robust RAG pipeline that actually understands context. His ability to bridge the gap between research models and production code is rare.'
-  },
-  {
-    name: 'David Miller',
-    role: 'Lead Developer @ TechFlow',
-    text: 'I worked with Sameem on the Household Services app. His backend architecture was clean, scalable, and he was always proactive about solving potential bottlenecks before they became issues.'
   }
-];
-
-export const experience = [
-  {
-    company: 'Logitech',
-    role: 'AI/ML/GenAI Engineer',
-    period: 'May 2024 – Present',
-    highlights: [
-      'Application Usage Analytics Pipeline (AWS Serverless): Built a serverless telemetry pipeline using EventBridge → Lambda → Firehose → S3 to log application usage events into an S3-based data lake. Implemented event enrichment and conditional routing for segmented analytics, with strict trigger detection and structured logging.',
-      'AI-powered VS Code Extension: Built an AI-assisted VS Code extension for in-editor code completion, explanations, and debugging with a focus on privacy and developer productivity. Developed a Tree-sitter-based code indexing pipeline and hybrid retrieval system using SQLite (metadata) + LanceDB (vector search) for fast repository-level context search.',
-      'Scalable AI Backend, Console & MCP Integrations: Built a scalable Python/FastAPI backend on an Azure Private Instance, integrating multiple LLM providers. Developed a developer console for usage, billing, and model consumption insights. Improved RAG quality using Multi-Query Retrieval and MMR, and added extensible support for Model Context Protocol (MCP) servers.'
-    ],
-    stack: ['Python', 'FastAPI', 'AWS Serverless', 'Tree-sitter', 'SQLite', 'LanceDB', 'Azure', 'OpenAI', 'Bedrock', 'LLMs', 'Alibaba Cloud', 'VS Code Extensions', 'RAG', 'NextJS', 'Redis', 'AWS RDS']
-  }
-];
-
-export const education = [
-  {
-    period: '2020 – Present',
-    degree: "Bachelor's in Data Science and Applications",
-    institute: 'IIT Madras',
-    note: 'CGPA: 7.9'
-  },
-  {
-    period: '2020 – 2024',
-    degree: "Bachelor's in Computer Science",
-    institute: 'DYPIEMR, Pune',
-    note: 'CGPA: 8.70'
-  }
-];
-
-export const skills = {
-  programming: ['Python', 'Java', 'JavaScript', 'TypeScript'],
-  ml: ['LLMs', 'NLP', 'LangChain', 'RAG', 'Vector Stores', 'Embeddings', 'Text Chunking', 'PyTorch', 'Hugging Face', 'NVIDIA NeMo', 'SHAP', 'Fairlearn', 'Evidently'],
-  data: ['Data Preprocessing', 'Data Manipulation', 'Statistical Methods', 'Data Analysis'],
-  web: ['VS Code Extension Development', 'FastAPI', 'Flask', 'Django', 'Vue.js', 'Streamlit'],
-  cloud: ['AWS', 'EventBridge', 'Lambda', 'Kinesis Firehose', 'S3', 'GCP', 'GKE', 'Azure', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD'],
-  tools: ['Tree-sitter', 'LanceDB', 'ChromaDB', 'SQLite', 'DataStax Astra DB', 'OpenAI API', 'AWS Bedrock', 'Meta LLMs', 'Alibaba Cloud LLMs', 'MCP', 'Redis', 'Celery', 'Prometheus', 'ffmpeg']
-};
-
-export const certifications = [
-  'Foundation Level Certificate – IITM BS',
-  'Diploma Level Certificate – IITM BS',
-  'Python – Programming for Everybody (Coursera)',
-  'Computer Networks – NPTEL',
-  'Social Networks – NPTEL',
-  'SQL – HackerRank'
 ];

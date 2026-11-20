@@ -42,3 +42,9 @@ next-env.d.ts
 
 # local
 .npm-cache/
+
+# agent and tool scratch directories
+.*
+!.gitignore
+!.github/
+!.env*

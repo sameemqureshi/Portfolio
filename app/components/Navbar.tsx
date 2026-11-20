@@ -20,11 +20,11 @@ export default function Navbar() {
   });
 
   const links = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Education', href: '#education' },
-    { name: 'Skills', href: '#skills' },
+    { name: 'About', href: '/#about' },
+    { name: 'Experience', href: '/#experience' },
+    { name: 'Projects', href: '/#projects' },
+    { name: 'Stack', href: '/#skills' },
+    { name: 'Writing', href: '/#articles' },
     { name: 'Contact', href: 'mailto:qureshisameem01@gmail.com' },
   ];
 
@@ -36,23 +36,23 @@ export default function Navbar() {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="fixed top-0 inset-x-0 z-50 h-16 bg-slate-950/80 backdrop-blur-md border-b border-white/5"
+      className="fixed top-0 inset-x-0 z-40 h-16 bg-black/80 backdrop-blur-md border-b border-neutral-900"
     >
       <div className="max-w-5xl mx-auto px-6 h-full flex items-center justify-between">
         <Link
           href="/"
-          className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
+          className="font-mono text-sm font-bold tracking-widest uppercase text-white hover:text-cyan-400 transition-colors"
         >
-          SQ
+          Sameem Qureshi
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-7">
           {links.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors"
+              className="text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors"
             >
               {link.name}
             </Link>
@@ -62,11 +62,11 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-slate-300 hover:text-white"
+          className="md:hidden text-neutral-400 hover:text-white p-1"
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
         >
-          {isOpen ? <X /> : <Menu />}
+          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
@@ -76,15 +76,15 @@ export default function Navbar() {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-slate-950 border-b border-slate-800"
+          className="md:hidden bg-neutral-950 border-b border-neutral-800"
         >
-          <div className="flex flex-col p-4 gap-4">
+          <div className="flex flex-col p-6 gap-5">
             {links.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-base font-medium text-slate-400 hover:text-cyan-400 transition-colors"
+                className="text-sm font-mono uppercase tracking-wider text-neutral-400 hover:text-cyan-400 transition-colors"
               >
                 {link.name}
               </Link>

@@ -4,7 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Tag, Calendar } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, ArrowRight, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { projects } from '../../data';
 
 interface ProjectContentProps {
   project: {
@@ -27,147 +28,188 @@ interface ProjectContentProps {
 }
 
 export default function ProjectContent({ project }: ProjectContentProps) {
+  // Find next project for seamless B1 navigation
+  const currentIndex = projects.findIndex((p) => p.slug === project.slug);
+  const nextProject = projects[(currentIndex + 1) % projects.length];
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500/30 font-sans">
-      {/* Background Gradient */}
-      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950">
-        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay" />
+    <div className="min-h-screen bg-black text-neutral-100 selection:bg-cyan-500/30 font-sans relative">
+      {/* Background ambient gradient */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-950/20 blur-[140px] rounded-full" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-20">
-        {/* Back Button */}
-        <Link 
-          href="/"
-          className="inline-flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-12 group"
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-24">
+        {/* Back Link */}
+        <Link
+          href="/#projects"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-cyan-400 transition-colors mb-16 group"
         >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Back to Projects
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+          <span>Back to All Systems</span>
         </Link>
 
-        {/* Header */}
-        <motion.header 
+        {/* Title Card Hero */}
+        <motion.header
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          {project.image && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="w-full h-64 md:h-96 relative rounded-3xl overflow-hidden mb-8 border border-slate-800 bg-slate-900/50"
-            >
-               <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20`} />
-               <div className="absolute inset-0 flex items-center justify-center p-8">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-contain p-8 drop-shadow-2xl"
-                  />
-               </div>
-            </motion.div>
-          )}
-
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
-              <span 
+              <span
                 key={tag}
-                className="px-3 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
+                className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-900 border border-neutral-800 text-neutral-300"
               >
                 {tag}
               </span>
             ))}
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-300 mb-6 leading-tight">
+
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
             {project.title}
           </h1>
-          <p className="text-xl text-slate-400 leading-relaxed max-w-2xl">
+
+          <p className="text-xl md:text-2xl text-neutral-300 font-light leading-relaxed max-w-3xl">
             {project.desc}
           </p>
+
+          {/* Action Links */}
+          <div className="flex flex-wrap gap-4 mt-8 pt-6 border-t border-neutral-900">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-neutral-950 font-medium text-sm hover:bg-neutral-200 transition-all"
+              >
+                <Github className="w-4 h-4" />
+                <span>Source Repository</span>
+              </a>
+            )}
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-neutral-800 bg-neutral-900/60 text-neutral-200 font-medium text-sm hover:border-neutral-700 hover:text-white transition-all"
+              >
+                <ExternalLink className="w-4 h-4" />
+                <span>Live Service</span>
+              </a>
+            )}
+          </div>
         </motion.header>
 
-        {/* Project Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap gap-4 mb-16 border-b border-slate-800 pb-12"
-        >
-          {project.demo && (
-            <Link href={project.demo} target="_blank" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-100 text-slate-950 font-medium hover:bg-cyan-400 transition-colors">
-              <ExternalLink className="w-4 h-4" />
-              Live Demo
-            </Link>
-          )}
-          {project.github && (
-            <Link href={project.github} target="_blank" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 border border-slate-800 text-slate-300 font-medium hover:border-slate-600 transition-colors">
-              <Github className="w-4 h-4" />
-              View Source
-            </Link>
-          )}
-        </motion.div>
-
-        {/* Case Study Content */}
-        {project.content ? (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="prose prose-invert prose-lg max-w-none text-slate-300"
+        {/* Hero Visual Media */}
+        {project.image && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="w-full h-72 md:h-[420px] relative rounded-3xl overflow-hidden mb-16 border border-neutral-800 bg-neutral-950 flex items-center justify-center p-8"
           >
-            <h3>Overview</h3>
-            <p>{project.content.overview}</p>
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-contain p-8 drop-shadow-2xl opacity-90"
+            />
+          </motion.div>
+        )}
 
-            <h3>Key Features</h3>
-            <ul>
-              {project.content.features.map((feature, index) => (
-                <li key={index}>
-                  {feature}
-                </li>
-              ))}
-            </ul>
+        {/* Narrative Deep Dive */}
+        {project.content && (
+          <div className="space-y-16 text-neutral-300">
+            {/* System Overview */}
+            <section className="space-y-4">
+              <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 block">
+                01 / ARCHITECTURE OVERVIEW
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                System Objective &amp; Scope
+              </h2>
+              <p className="text-lg font-light leading-relaxed text-neutral-300">
+                {project.content.overview}
+              </p>
+            </section>
 
-            <h3>Technical Implementation</h3>
-            <p>
-              The system architecture relies heavily on {project.tags.slice(0, 3).join(', ')}. 
-              By choosing this stack, we ensured that the application remains robust and maintainable.
-            </p>
-
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 my-8 not-prose">
-              <h4 className="text-slate-100 font-semibold mb-4 flex items-center gap-2">
-                <Tag className="w-4 h-4 text-cyan-400" />
-                Technology Deep Dive
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {project.tags.map((tag) => (
-                  <div key={tag} className="flex items-center gap-3 text-sm text-slate-400">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-500/50" />
-                    {tag}
+            {/* Key Features Breakdown */}
+            <section className="space-y-6">
+              <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 block">
+                02 / TECHNICAL HIGHLIGHTS
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                Key Engineering Capabilities
+              </h2>
+              <div className="grid gap-4">
+                {project.content.features.map((feature, idx) => (
+                  <div
+                    key={idx}
+                    className="p-5 rounded-2xl border border-neutral-800/80 bg-neutral-950/60 flex items-start gap-4"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
+                    <p className="text-sm md:text-base font-light text-neutral-200 leading-relaxed">
+                      {feature}
+                    </p>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
 
-            <h3>Challenges & Solutions</h3>
-            <p>
-              <strong>Challenge:</strong> {project.content.challenges}
-            </p>
-            <p>
-              <strong>Solution:</strong> {project.content.solutions}
-            </p>
+            {/* Engineering Challenges & Solutions */}
+            <section className="grid md:grid-cols-2 gap-6 pt-4">
+              <div className="p-6 md:p-8 rounded-2xl border border-neutral-800/80 bg-neutral-950/60 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-4 text-amber-400 font-mono text-xs uppercase tracking-wider">
+                    <AlertTriangle className="w-4 h-4" />
+                    <span>Technical Challenge</span>
+                  </div>
+                  <p className="text-sm md:text-base font-light leading-relaxed text-neutral-300">
+                    {project.content.challenges}
+                  </p>
+                </div>
+              </div>
 
-            <h3>Conclusion</h3>
-            <p>
-              This project demonstrates the capability to deliver high-quality software solutions 
-              that solve real-world problems. It highlights proficiency in both frontend and backend technologies, 
-              as well as a deep understanding of user experience.
-            </p>
-          </motion.div>
-        ) : (
-          <div className="text-slate-500 italic">Detailed case study content coming soon...</div>
+              <div className="p-6 md:p-8 rounded-2xl border border-neutral-800/80 bg-neutral-950/60 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-4 text-emerald-400 font-mono text-xs uppercase tracking-wider">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Engineered Solution</span>
+                  </div>
+                  <p className="text-sm md:text-base font-light leading-relaxed text-neutral-300">
+                    {project.content.solutions}
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
         )}
+
+        {/* B1 Pattern: Next Project Transition */}
+        <div className="mt-24 pt-12 border-t border-neutral-900">
+          <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest block mb-4">
+            Next System
+          </span>
+          <Link
+            href={nextProject.link}
+            className="group flex flex-col md:flex-row md:items-center justify-between p-8 rounded-3xl border border-neutral-800 hover:border-neutral-700 bg-neutral-950/40 hover:bg-neutral-900/40 transition-all"
+          >
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-cyan-400 transition-colors tracking-tight">
+                {nextProject.title}
+              </h3>
+              <p className="text-sm text-neutral-400 mt-2 font-light">
+                {nextProject.desc}
+              </p>
+            </div>
+            <div className="mt-4 md:mt-0 flex items-center gap-2 text-sm font-mono text-neutral-400 group-hover:text-cyan-400 shrink-0">
+              <span>View Case Study</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );
